@@ -1,0 +1,32 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="title">赛事发布</view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="section">
+      <view class="section__title">1. 请输入赛事名称</view>
+      <input class="section__input" value="{{gameName}}" bindinput="bindGameName" name="gameName" type="text" placeholder="赛事名称" maxlength="140" />
+    </view>
+
+    <view class="section">
+      <view class="section__title">2. 请选择日期</view>
+      <picker class="section__input" value="{{gameDate}}" name="gameDate" mode="date" bindchange="bindDateChange" start="2017-01-01" end="2050-12-31" fields="day">日期：{{gameDate}}</picker>
+    </view>
+
+    <view class="section">
+      <view class="section__title">3. 请选择比赛开始时间</view>
+      <picker class="section__input" value="{{gameTime}}" name="gameTime" mode="time" bindchange="bindTimeChange" start="00:00" end="23:59">
+        时间：{{gameTime}}
+      </picker>
+    </view>
+
+    <view class="section">
+      <view class="section__title">4. 请输入需要的裁判数</view>
+      <input class="section__input" value="{{refereeNumber}}" bindinput="bindRefereeNumber" name="refereeNumber" type="number" placeholder="人数" maxlength="10" />
+    </view>
+
+    <view class="btn_area">
+      <button type="primary" formType="submit">提交</button> 
+      <button type="default" formType="reset">重置</button>
+    </view>
+  </form>
+</view>

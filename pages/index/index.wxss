@@ -1,0 +1,23 @@
+/**index.wxss**/
+.title {
+  text-align: center;
+  margin: 100rpx;
+  font-weight: bold;
+}
+.section {
+  margin: 30rpx;
+}
+.section__title {
+  padding: 20rpx 0;
+  margin-bottom: 10rpx;
+}
+.section__input {
+  padding: 20rpx;
+  background-color: #fff;
+  border: 1rpx dotted #ddd;
+}
+.btn_area {
+  margin-bottom: 100rpx;
+  display: flex;
+  flex: row;
+}
