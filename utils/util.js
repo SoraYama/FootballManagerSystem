@@ -16,7 +16,7 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
-const SERVERURL = "https://93325742.qcloud.la";
+const SERVERURL = "https://www.sorayamah.org";
 
 module.exports = {
   formatTime: formatTime,

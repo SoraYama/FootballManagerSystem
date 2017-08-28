@@ -38,15 +38,24 @@ Page({
   formSubmit: function(e) {
     var that = this
     console.log("formData: ", e.detail.value)
+    wx.showLoading({
+      title: 'Waiting',
+      mask: true
+    })
     wx.request({
-      url: util.SERVERURL,
+      url: util.SERVERURL + '/creategame',
       data: {
         formData: e.detail.value,
       },
       method: 'GET', 
       success: function(res){
+        wx.hideLoading()
+        wx.showToast({
+          title: 'Success',
+        })
         that.setData({
           submitResponse: res,
+          
         })
         console.log("success", res)
       },
