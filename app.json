@@ -1,27 +1,27 @@
 {
   "pages":[
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/createGame/createGame",
+    "pages/myGame/myGame"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "SoraYama",
+    "navigationBarTextStyle":"white"
   },
   "tabBar": {
     "color": "#aaa",
     "selectedColor": "#00C624",
     "backgroundColor": "#FFF",
     "list": [{
-      "pagePath": "pages/index/index",
-      "text": "index",
+      "pagePath": "pages/createGame/createGame",
+      "text": "创建比赛",
       "iconPath": "",
       "selectedIconPath": ""
     },
     {
-      "pagePath": "pages/logs/logs",
-      "text": "logs",
+      "pagePath": "pages/myGame/myGame",
+      "text": "我的比赛",
       "iconPath": "",
       "selectedIconPath": ""
     }]
