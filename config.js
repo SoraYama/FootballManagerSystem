@@ -1,4 +1,4 @@
-var host = "93325742.qcloud.la"
+var host = "www.sorayamah.org"
 
 var config = {
 
