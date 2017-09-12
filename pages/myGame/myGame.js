@@ -1,4 +1,4 @@
-//logs.js
+//myGame0.js
 var util = require('../../utils/util.js')
 let app = getApp()
 Page({

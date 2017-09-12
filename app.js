@@ -1,6 +1,7 @@
 //app.js
 
 const openIdUrl = require('./config.js').openIdUrl
+const util = require('./utils/util.js')
 
 App({
   onLaunch: function() {
@@ -33,9 +34,10 @@ App({
     } else {
       wx.login({
         success: function(data) {
+          console.log('*** data: ', data)
           if (data.code) {
             wx.request({
-              url: openIdUrl,
+              url: util.SERVERURL + '/openid',
               data: {
                 code: data.code
               },
