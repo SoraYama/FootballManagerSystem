@@ -46,6 +46,7 @@ Page({
       url: util.SERVERURL + '/creategame',
       data: {
         formData: e.detail.value,
+        openid: app.globalData.openid,
       },
       method: 'GET', 
       success: function(res){
@@ -62,6 +63,9 @@ Page({
 
       fail: function() {
         console.log("FAILED!")
+        wx.showToast({
+          title: 'Failed',
+        })
       }
     })
   }
