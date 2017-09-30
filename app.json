@@ -1,7 +1,8 @@
 {
   "pages":[
     "pages/createGame/createGame",
-    "pages/myGame/myGame"
+    "pages/myGame/myGame",
+    "pages/enrol/enrol"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -25,5 +26,6 @@
       "iconPath": "",
       "selectedIconPath": ""
     }]
-  }
+  },
+  "debug": true
 }

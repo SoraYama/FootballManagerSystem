@@ -1,12 +1,2 @@
-.log-list {
-  display: flex;
-  flex-direction: column;
-  padding: 40rpx;
-}
-.log-item {
-  margin: 10rpx;
-}
-.UserInfo {
-  margin: 10rpx;
-  color: #0af;
-}
+/** myGame.wxss**/
+@import '../../wxss/style/weui.wxss';

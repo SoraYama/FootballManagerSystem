@@ -1,32 +1,63 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="title">赛事发布</view>
-  <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="section">
-      <view class="section__title">1. 请输入赛事名称</view>
-      <input class="section__input" value="{{gameName}}" bindinput="bindGameName" name="gameName" type="text" placeholder="赛事名称" maxlength="140" />
-    </view>
+<!--createGame.wxml-->
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">赛事发布</view>
+  </view>
 
-    <view class="section">
-      <view class="section__title">2. 请选择日期</view>
-      <picker class="section__input" value="{{gameDate}}" name="gameDate" mode="date" bindchange="bindDateChange" start="2017-01-01" end="2050-12-31" fields="day">日期：{{gameDate}}</picker>
+  <view class="weui-cells__title">请输入比赛信息</view>
+    <form bindreset='formReset' bindsubmit='formSubmit'>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">赛事名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入赛事名称" name="gameName" bindinput="bindGameName" value='{{gameName}}'/>
+        </view>
     </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">日期</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker value="{{gameDate}}" name="gameDate" mode="date" bindchange="bindDateChange" start="2017-01-01" end="2050-12-31" fields="day">
+          <view class="weui-input">{{gameDate}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">开始时间</view>
+      </view>
+        <view class="weui-cell__bd">
+        <picker value="{{gameTime}}" name="gameTime" mode="time" bindchange="bindTimeChange" start="00:00" end="23:59">
+          <view class="weui-input">{{gameTime}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">结束时间</view>
+      </view>
+        <view class="weui-cell__bd">
+        <picker value="{{gameEndTime}}" name="gameEndTime" mode="time" bindchange="bindEndTimeChange" start="00:00" end="23:59">
+          <view class="weui-input">{{gameEndTime}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">裁判数</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="请输入需要的裁判数" name="refereeNumber" bindinput="bindRefereeNumber" value='{{refereeNumber}}'/>
+      </view>
+    </view>
+  </view>
 
-    <view class="section">
-      <view class="section__title">3. 请选择比赛开始时间</view>
-      <picker class="section__input" value="{{gameTime}}" name="gameTime" mode="time" bindchange="bindTimeChange" start="00:00" end="23:59">
-        时间：{{gameTime}}
-      </picker>
-    </view>
-
-    <view class="section">
-      <view class="section__title">4. 请输入需要的裁判数</view>
-      <input class="section__input" value="{{refereeNumber}}" bindinput="bindRefereeNumber" name="refereeNumber" type="number" placeholder="人数" maxlength="10" />
-    </view>
-
-    <view class="btn_area">
-      <button type="primary" formType="submit">提交</button> 
-      <button type="default" formType="reset">重置</button>
-    </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" formType="submit">提交</button>
+    <button class="weui-btn" type="default" formType="reset">重置</button>
+  </view>
   </form>
 </view>

@@ -1,7 +1,35 @@
-<!--logs.wxml-->
-<view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log" wx:key="*this">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
-  <text class="UserInfo">{{UserInfo}}</text>
+<!--myGame.wxml-->
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">我的比赛</view>
+  </view>
+  <view wx:for="{{games}}">
+    <view class="page__bd">
+        <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">比赛名称</view>
+                    <view class="weui-form-preview__value_in-hd">{{item.gameName}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">日期</view>
+                    <view class="weui-form-preview__value">{{item.gameDate}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">时间</view>
+                    <view class="weui-form-preview__value">{{item.gameTime}} ~ {{item.gameEndTime}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">需要裁判数</view>
+                    <view class="weui-form-preview__value">{{item.refereeNumber}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator url="/pages/enrol/enrol?colId={{item._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">报名</navigator>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>
