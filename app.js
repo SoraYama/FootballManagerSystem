@@ -45,6 +45,7 @@ App({
               data: {
                 code: data.code
               },
+              method: 'POST',
               success: function(res) {
                 console.log('拉取openid成功', res)
                 self.globalData.openid = res.data.openid

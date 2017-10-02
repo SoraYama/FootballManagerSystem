@@ -12,6 +12,7 @@ Page({
       data: {
         openid: app.globalData.openid,
       },
+      method: 'POST',
       success: data => {
         data = data.data
         console.log('*** incoming data from all games: ', data)

@@ -21,7 +21,7 @@ Page({
     })
     wx.request({
       url: config.queryById,
-      method: 'GET',
+      method: 'POST',
       data: {
         colId: this.data.colId,
       },
@@ -62,31 +62,38 @@ Page({
       title: 'Waiting',
       mask: true
     })
+    let data = e.detail.value
+    data['openid'] = app.globalData.openid
+    data['gameId'] = this.data.colId
     wx.request({
       url: config.enrol,
       data: {
-        formData: e.detail.value,
-        openid: app.globalData.openid,
+        data: data,
       },
-      method: 'GET',
+      method: 'POST',
       success: function(res) {
         wx.hideLoading()
-        wx.showToast({
-          icon: 'success',
-          title: 'Success',
-          duration: 2000,
-        })
-        that.setData({
-          submitResponse: res,
-
-        })
+        if (res.statusCode !== 200) {
+          wx.showModal({
+            title: '提交失败',
+            content: res.data.msg,
+            showCancel: false,
+          })
+        } else {
+          wx.showToast({
+            title: '报名成功',
+            duration: 2000,
+          })
+        }
         console.log("success", res)
       },
 
       fail: function() {
-        console.log("CREATE GAME FAILED!")
-        wx.showToast({
-          title: 'Failed',
+        console.log("ENROL FAILED!")
+        wx.showModal({
+          title: '提交失败',
+          content: '网络不稳定，请重新提交',
+          showCancel: false,
         })
       }
     })

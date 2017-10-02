@@ -1,6 +1,7 @@
 //creategame.js
-var util = require('../../utils/util.js')
-var app = getApp()
+let util = require('../../utils/util.js')
+import config from '../../config.js'
+let app = getApp()
 Page({
   data: {
     gameName: "",
@@ -43,18 +44,19 @@ Page({
 
   formSubmit: function(e) {
     var that = this
-    console.log("formData: ", e.detail.value)
+    let formData = e.detail.value
+    formData['openid'] = app.globalData.openid
+    console.log("formData: ", formData)
     wx.showLoading({
       title: 'Waiting',
       mask: true
     })
     wx.request({
-      url: util.SERVERURL + '/creategame',
+      url: config.createGame,
       data: {
-        formData: e.detail.value,
-        openid: app.globalData.openid,
+        formData: formData,
       },
-      method: 'GET',
+      method: 'POST',
       success: function(res){
         wx.hideLoading()
         wx.showToast({
@@ -71,8 +73,10 @@ Page({
 
       fail: function() {
         console.log("CREATE GAME FAILED!")
-        wx.showToast({
-          title: 'Failed',
+        wx.showModal({
+          title: '提交失败',
+          content: '网络不稳定，请重新提交',
+          showCancel: false,
         })
       }
     })

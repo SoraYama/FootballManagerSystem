@@ -16,15 +16,11 @@
     "backgroundColor": "#FFF",
     "list": [{
       "pagePath": "pages/createGame/createGame",
-      "text": "创建比赛",
-      "iconPath": "",
-      "selectedIconPath": ""
+      "text": "创建比赛"
     },
     {
       "pagePath": "pages/myGame/myGame",
-      "text": "我的比赛",
-      "iconPath": "",
-      "selectedIconPath": ""
+      "text": "我的比赛"
     }]
   },
   "debug": true
