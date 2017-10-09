@@ -1,5 +1,5 @@
-let host = "www.sorayamah.org"
-let config = {
+const host = 'www.sorayamah.org'
+const config = {
     host,
     /** 创建比赛 */
     createGame: `https://${host}/createGame`,
@@ -11,6 +11,6 @@ let config = {
     queryById: `https://${host}/gamebyid`,
     /** 报名 */
     enrol: `https://${host}/enrol`,
-};
+}
 
 module.exports = config

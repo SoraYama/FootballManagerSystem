@@ -1,7 +1,7 @@
 //creategame.js
-let util = require('../../utils/util.js')
+const util = require('../../utils/util.js')
 import config from '../../config.js'
-let app = getApp()
+const app = getApp()
 Page({
   data: {
     gameName: "",
