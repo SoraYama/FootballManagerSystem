@@ -1,5 +1,8 @@
 <!--createGame.wxml-->
 <view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  
+  <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">表单缺项</view>
+
   <view class="page__hd">
     <view class="page__title">赛事发布</view>
   </view>
@@ -60,4 +63,11 @@
     <button class="weui-btn" type="default" formType="reset">重置</button>
   </view>
   </form>
+  
+  <view class="weui-footer weui-footer_fixed-bottom">
+    <view class="weui-footer__links">
+        <navigator url="https://github.com/hyq77766177" class="weui-footer__link">SoraYama</navigator>
+    </view>
+    <view class="weui-footer__text">Copyright © 2017 sorayamah.org</view>
+  </view>
 </view>

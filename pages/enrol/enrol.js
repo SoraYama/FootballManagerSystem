@@ -5,16 +5,34 @@ import config from '../../config.js'
 let app = getApp()
 Page({
   data: {
+    showTopTips: false,
     colId: null,
     game: null,
+    cancel: false,
+    update: false,
     startRefTime: "00:00",
     endRefTime: "23:59",
     refereeName: "",
   },
+
+  showTopTips: function() {
+    var that = this;
+    this.setData({
+      showTopTips: true
+    });
+    setTimeout(function() {
+      that.setData({
+        showTopTips: false
+      });
+    }, 3000);
+  },
+
   onLoad: function(query) {
-    console.log(' *** query: ', query);
+    console.log('*** query: ', query);
     this.setData({
       colId: query.colId,
+      cancel: query.cancel,
+      update: query.update,
     })
     wx.showLoading({
       title: 'Loading',
@@ -55,8 +73,14 @@ Page({
       startRefTime: e.detail.value,
     })
   },
+
   formSubmit: function(e) {
     let that = this
+    if (!that.data.refereeName) {
+      that.showTopTips()
+      return
+    }
+
     console.log("enrol formData: ", e.detail.value)
     wx.showLoading({
       title: 'Waiting',
@@ -65,8 +89,11 @@ Page({
     let data = e.detail.value
     data['openid'] = app.globalData.openid
     data['gameId'] = this.data.colId
+
+    const URL = that.data.update ? config.updateEnrol : config.enrol
+
     wx.request({
-      url: config.enrol,
+      url: URL,
       data: {
         data: data,
       },
@@ -81,21 +108,51 @@ Page({
           })
         } else {
           wx.showToast({
-            title: '报名成功',
+            title: 'success',
             duration: 2000,
           })
+          wx.navigateBack()
         }
         console.log("success", res)
       },
 
       fail: function() {
         console.log("ENROL FAILED!")
+        wx.hideLoading()
         wx.showModal({
           title: '提交失败',
           content: '网络不稳定，请重新提交',
           showCancel: false,
         })
       }
+    })
+  }, 
+
+  cancelEnrol: function(e) {
+    let that = this
+    wx.showLoading({
+      title: 'Waiting'
+    })
+    wx.request({
+      url: config.cancelEnrol,
+      method: 'POST',
+      data: {
+        openid: app.globalData.openid,
+        gameId: that.data.colId,
+      },
+      success: data => {
+        console.log('cancel enrol success: ', data)
+        wx.hideLoading()
+        wx.showToast({
+          title: 'success',
+          icon: 'success',
+        })
+        wx.navigateBack()
+      }, 
+      failed: err => {
+        wx.hideLoading()
+        console.error('cancel enrol failed: ', err)
+      },
     })
   }
 })

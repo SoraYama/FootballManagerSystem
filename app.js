@@ -38,10 +38,10 @@ App({
     } else {
       wx.login({
         success: function(data) {
-          console.log('*** data: ', data)
+          console.log('*** login data: ', data)
           if (data.code) {
             wx.request({
-              url: util.SERVERURL + '/openid',
+              url: openIdUrl,
               data: {
                 code: data.code
               },

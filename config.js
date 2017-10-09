@@ -11,6 +11,10 @@ const config = {
     queryById: `https://${host}/gamebyid`,
     /** 报名 */
     enrol: `https://${host}/enrol`,
+    /** 取消报名 */
+    cancelEnrol: `https://${host}/cancelenrol`,
+    /** 修改报名信息 */
+    updateEnrol: `https://${host}/updateenrol`,
 }
 
 module.exports = config

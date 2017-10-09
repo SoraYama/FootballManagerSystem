@@ -9,7 +9,20 @@ Page({
     gameTime: "00:00",
     gameEndTime: "23:59",
     refereeNumber: null,
-    submitResponse: ""
+    submitResponse: "",
+    showTopTips: false,
+  },
+
+  showTopTips: function() {
+    var that = this;
+    this.setData({
+      showTopTips: true
+    });
+    setTimeout(function() {
+      that.setData({
+        showTopTips: false
+      });
+    }, 3000);
   },
 
   bindGameName: function(e) {
@@ -43,6 +56,11 @@ Page({
   },
 
   formSubmit: function(e) {
+    if (!this.data.gameName || !this.data.refereeNumber) {
+      this.showTopTips()
+      return
+    }
+
     var that = this
     let formData = e.detail.value
     formData['openid'] = app.globalData.openid
@@ -81,5 +99,4 @@ Page({
       }
     })
   }
-
 })

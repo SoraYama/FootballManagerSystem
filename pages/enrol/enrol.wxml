@@ -1,6 +1,8 @@
 <!--enrol.wxml-->
 <view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
-
+  
+  <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">表单缺项</view>
+  
   <view class="page__hd">
     <view class="page__title">报名信息</view>
   </view>
@@ -30,42 +32,50 @@
     </view>
   </view>
 
-  <view class="weui-cells__title">请输入报名信息</view>
-  <form bindreset='formReset' bindsubmit='formSubmit'>
-    <view class="weui-cells weui-cells_after-title">
+  <block wx:if="{{!cancel}}">
+    <view class="weui-cells__title">请输入报名信息</view>
+    <form bindreset='formReset' bindsubmit='formSubmit'>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">姓名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入你的姓名" name="refereeName" bindinput="bindRefereeNameChange" value='{{refereeName}}'/>
+          </view>
+      </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">姓名</view>
+          <view class="weui-label">执法时段</view>
+        </view>
+          <view class="weui-cell__bd">
+          <picker value="{{startRefTime}}" name="startRefTime" mode="time" bindchange="bindStartRefTimeChange" start="00:00" end="23:59">
+            <view class="weui-input">{{startRefTime}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">到</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入你的姓名" name="refereeName" bindinput="bindRefereeNameChange" value='{{refereeName}}'/>
+          <picker value="{{endRefTime}}" name="endRefTime" mode="time" bindchange="bindEndRefTimeChange" start="00:00" end="23:59">
+            <view class="weui-input">{{endRefTime}}</view>
+          </picker>
         </view>
-    </view>
-    <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">执法时段</view>
       </view>
-        <view class="weui-cell__bd">
-        <picker value="{{startRefTime}}" name="startRefTime" mode="time" bindchange="bindStartRefTimeChange" start="00:00" end="23:59">
-          <view class="weui-input">{{startRefTime}}</view>
-        </picker>
       </view>
-    </view>
-    <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">到</view>
-      </view>
-        <view class="weui-cell__bd">
-        <picker value="{{endRefTime}}" name="endRefTime" mode="time" bindchange="bindEndRefTimeChange" start="00:00" end="23:59">
-          <view class="weui-input">{{endRefTime}}</view>
-        </picker>
-      </view>
-    </view>
-  </view>
 
-  <view class="weui-btn-area">
-    <button class="weui-btn" type="primary" formType="submit">确认报名</button>
-  </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" formType="submit">确认</button>
+      </view>
+    </form>
+  </block>
 
-  </form>
+  <block wx:if="{{cancel}}">
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="warn" bindtap="cancelEnrol">取消报名</button>
+    </view>
+  </block>
+
 </view>
