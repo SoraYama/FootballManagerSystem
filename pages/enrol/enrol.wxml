@@ -4,7 +4,7 @@
   <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">表单缺项</view>
   
   <view class="page__hd">
-    <view class="page__title">报名信息</view>
+    <view class="page__title">赛事详情</view>
   </view>
 
   <view class="page__bd">
@@ -32,7 +32,7 @@
     </view>
   </view>
 
-  <block wx:if="{{!cancel}}">
+  <block wx:if="{{!cancel && !own}}">
     <view class="weui-cells__title">请输入报名信息</view>
     <form bindreset='formReset' bindsubmit='formSubmit'>
       <view class="weui-cells weui-cells_after-title">
@@ -75,6 +75,38 @@
   <block wx:if="{{cancel}}">
     <view class="weui-btn-area">
       <button class="weui-btn" type="warn" bindtap="cancelEnrol">取消报名</button>
+    </view>
+  </block>
+
+  <block wx:if="{{own}}">
+    <view class="weui-cells__title">现有报名人员</view>
+    <block wx:if="{{!game.referees || game.referees.length === 0}}">
+      <view class="weui-loadmore weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+      </view>
+    </block>
+    <view wx:for="{{game.referees}}" wx:key="*this">
+      <view class="page__bd">
+        <view class="weui-form-preview">
+          <view class="weui-form-preview__hd">
+            <view class="weui-form-preview__item">
+              <view class="weui-form-preview__label">姓名</view>
+              <view class="weui-form-preview__value_in-hd">{{item.refereeName}}</view>
+            </view>
+          </view>
+
+          <view class="weui-form-preview__bd">   
+            <view class="weui-form-preview__item">
+              <view class="weui-form-preview__label">可执法时段</view>
+              <view class="weui-form-preview__value">{{item.startRefTime}} ~ {{item.endRefTime}}</view>
+            </view>
+          </view>
+
+          <view class="weui-form-preview__ft">
+            <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" bindtap="assign" data-openid="{{item.openid}}">选派</button>
+          </view>
+        </view>
+      </view>
     </view>
   </block>
 

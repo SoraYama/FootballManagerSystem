@@ -1,2 +1,5 @@
 /**createGame.wxss**/
 @import '../../wxss/style/weui.wxss';
+.weui-footer {
+    margin-top: 60px;
+}

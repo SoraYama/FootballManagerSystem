@@ -5,9 +5,10 @@ const sliderWidth = 96;
 let app = getApp()
 Page({
   data: {
+    availableGames: [],
     myEnroledGames: [],
     myCreatedGames: [],
-    tabs: ['我发布的', '我报名的'],
+    tabs: ['现有比赛', '我发布的', '我报名的'],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -46,6 +47,7 @@ Page({
         let gameData = data.data
         console.log('*** incoming data from all games: ', data)
         that.setData({
+          availableGames: gameData.availableGames,
           myEnroledGames: gameData.myEnroledGames,
           myCreatedGames: gameData.myCreatedGames,
         })

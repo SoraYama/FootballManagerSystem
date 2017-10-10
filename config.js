@@ -15,6 +15,8 @@ const config = {
     cancelEnrol: `https://${host}/cancelenrol`,
     /** 修改报名信息 */
     updateEnrol: `https://${host}/updateenrol`,
+    /** 选派 */
+    assign: `https://${host}/assign`,
 }
 
 module.exports = config

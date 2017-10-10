@@ -10,6 +10,7 @@ Page({
     game: null,
     cancel: false,
     update: false,
+    own: false,
     startRefTime: "00:00",
     endRefTime: "23:59",
     refereeName: "",
@@ -33,9 +34,11 @@ Page({
       colId: query.colId,
       cancel: query.cancel,
       update: query.update,
+      own: query.own,
     })
     wx.showLoading({
       title: 'Loading',
+      icon: 'Loading',
     })
     wx.request({
       url: config.queryById,
@@ -45,7 +48,7 @@ Page({
       },
       success: data => {
         console.log('query game: ', data);
-        wx.hideLoading();
+        wx.hideLoading()
         this.setData({
           game: data.data,
         });
@@ -154,5 +157,39 @@ Page({
         console.error('cancel enrol failed: ', err)
       },
     })
+  },
+
+  assign: function(e) {
+    let that = this
+    console.log('assign', e)
+    let openid = e.target.dataset.openid;
+    wx.showLoading()
+    let assign = that.data.game.referees.filter(r => r.openid === openid).shift().assign
+    wx.request({
+      url: config.assign,
+      method: "POST",
+      data: {
+        openid: openid,
+        gameId: that.data.game._id,
+        assign: !assign,
+      },
+      success: function(res) {
+        console.log(res)
+        wx.hideLoading()
+        wx.showToast({
+          title: 'success',
+          icon: 'success',
+        })
+      },
+      fail: function(err) {
+        wx.hideLoading()
+        wx.showModal({
+          title: '选派失败',
+          content: err.data,
+          showCancel: false,
+        })
+      }
+    })
   }
+
 })

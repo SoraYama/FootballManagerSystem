@@ -8,7 +8,8 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "SoraYama",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle":"white",
+    "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
     "color": "#aaa",
