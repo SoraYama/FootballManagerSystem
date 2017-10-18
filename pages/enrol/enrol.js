@@ -112,9 +112,9 @@ Page({
         } else {
           wx.showToast({
             title: 'success',
-            duration: 2000,
+            duration: config.toastDuration,
           })
-          wx.navigateBack()
+          setTimeout(wx.navigateBack, config.toastDuration);
         }
         console.log("success", res)
       },
@@ -149,8 +149,9 @@ Page({
         wx.showToast({
           title: 'success',
           icon: 'success',
+          duration: config.toastDuration,
         })
-        wx.navigateBack()
+        setTimeout(wx.navigateBack, config.toastDuration);
       }, 
       failed: err => {
         wx.hideLoading()
@@ -159,6 +160,7 @@ Page({
     })
   },
 
+  /** 选派 */
   assign: function(e) {
     let that = this
     console.log('assign', e)
@@ -179,7 +181,9 @@ Page({
         wx.showToast({
           title: 'success',
           icon: 'success',
+          duration: config.toastDuration,
         })
+        setTimeout(wx.navigateBack, config.toastDuration);
       },
       fail: function(err) {
         wx.hideLoading()
@@ -190,6 +194,48 @@ Page({
         })
       }
     })
-  }
+  },
 
+  onDeleteGame: function(e) {
+    wx.showModal({
+      title: '请确认',
+      content: '您确定要删除该比赛吗？',
+      success: this.deleteGame,
+    })
+  },
+
+  deleteGame: function() {
+    wx.showLoading({
+      title: 'Loading',
+    })
+    console.log('*** data.game: ', this.data.game)
+    wx.request({
+      url: config.deleteGame,
+      method: 'POST',
+      data: {
+        openid: app.globalData.openid,
+        gameId: this.data.game._id,
+      },
+      success: function(res) {
+        console.log('delete game success, res: ', res);
+        wx.hideLoading();
+        wx.showToast({
+          title: 'success',
+          duration: config.toastDuration,
+        });
+        setTimeout(wx.navigateBack, config.toastDuration);
+      }
+    })
+  },
+
+  /** 转发 */
+  onShareAppMessage: function(res) {
+    return {
+      title: `赛事报名-${this.data.game.gameName}`,
+      path: `/pages/enrol/enrol?colId=${this.data.colId}`,
+      success: function(res) {
+        console.log('share success, res: ', res);
+      }
+    }
+  },
 })

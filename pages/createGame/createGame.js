@@ -80,7 +80,7 @@ Page({
         wx.showToast({
           icon: 'success',
           title: 'Success',
-          duration: 2000,
+          duration: config.toastDuration,
         })
         that.setData({
           submitResponse: res,

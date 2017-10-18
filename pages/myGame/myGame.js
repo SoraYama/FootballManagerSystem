@@ -13,6 +13,9 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
   },
+  onShow: function() {
+    wx.startPullDownRefresh();
+  },
   onLoad: function () {
     let that = this;
     
@@ -69,5 +72,4 @@ Page({
   onPullDownRefresh: function() {
     this.getGameData();
   }
-
 })

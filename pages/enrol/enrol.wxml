@@ -110,4 +110,8 @@
     </view>
   </block>
 
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="warn" bindtap="deleteGame">删除比赛</button>
+  </view>
+
 </view>
