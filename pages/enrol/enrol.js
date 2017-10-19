@@ -13,7 +13,7 @@ Page({
     own: false,
     startRefTime: "00:00",
     endRefTime: "23:59",
-    refereeName: "",
+    refereeNames: "",
   },
 
   showTopTips: function() {
@@ -49,8 +49,10 @@ Page({
       success: data => {
         console.log('query game: ', data);
         wx.hideLoading()
+        let _refereeNames = data.data.referees && data.data.referees.filter(r => r.assigned).map(r => r.refereeName).join(", ")
         this.setData({
           game: data.data,
+          refereeNames: _refereeNames,
         });
       },
       fail: err => {
@@ -173,7 +175,7 @@ Page({
       data: {
         openid: openid,
         gameId: that.data.game._id,
-        assign: !assign,
+        assign: assign,
       },
       success: function(res) {
         console.log(res)
@@ -200,7 +202,9 @@ Page({
     wx.showModal({
       title: '请确认',
       content: '您确定要删除该比赛吗？',
-      success: this.deleteGame,
+      success: function(res) {
+        res.confirm ? this.deleteGame() : null
+      }
     })
   },
 

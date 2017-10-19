@@ -25,9 +25,15 @@
           <view class="weui-form-preview__value">{{game.gameTime}} ~ {{game.gameEndTime}}</view>
         </view>
         <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">需要裁判数</view>
-          <view class="weui-form-preview__value">{{game.refereeNumber}}</view>
+          <view class="weui-form-preview__label">需要裁判</view>
+          <view class="weui-form-preview__value">{{game.refereeNumber}}名</view>
         </view>
+        <block wx:if="{{own}}">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">现已选派</view>
+          <view class="weui-form-preview__value">{{refereeNames}}</view>
+        </view>
+        </block>
       </view>
     </view>
   </view>
@@ -102,16 +108,25 @@
             </view>
           </view>
 
+          <block wx:if="{{!item.assigned}}">
           <view class="weui-form-preview__ft">
             <button class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" bindtap="assign" data-openid="{{item.openid}}">选派</button>
           </view>
+          </block>
+          <block wx:if="{{item.assigned}}">
+          <view class="weui-form-preview__ft">
+            <button class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active" bindtap="assign" data-openid="{{item.openid}}">撤销</button>
+          </view>
+          </block>
+
         </view>
       </view>
     </view>
   </block>
 
+  <block wx:if="{{own}}">
   <view class="weui-btn-area">
-    <button class="weui-btn" type="warn" bindtap="deleteGame">删除比赛</button>
+    <button class="weui-btn" type="warn" bindtap="onDeleteGame">删除比赛</button>
   </view>
-
+  </block>
 </view>
