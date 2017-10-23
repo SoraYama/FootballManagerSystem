@@ -13,49 +13,49 @@ Page({
     showTopTips: false,
   },
 
-  showTopTips: function() {
+  showTopTips: function () {
     var that = this;
     this.setData({
       showTopTips: true
     });
-    setTimeout(function() {
+    setTimeout(function () {
       that.setData({
         showTopTips: false
       });
     }, 3000);
   },
 
-  bindGameName: function(e) {
+  bindGameName: function (e) {
     this.setData({
       gameName: e.detail.value
     })
   },
 
-  bindDateChange: function(e) {
+  bindDateChange: function (e) {
     this.setData({
       gameDate: e.detail.value
     })
   },
 
-  bindTimeChange: function(e) {
+  bindTimeChange: function (e) {
     this.setData({
       gameTime: e.detail.value
     })
   },
 
-  bindEndTimeChange: function(e) {
+  bindEndTimeChange: function (e) {
     this.setData({
       gameEndTime: e.detail.value
     })
   },
 
-  bindRefereeNumber: function(e) {
+  bindRefereeNumber: function (e) {
     this.setData({
       refereeNumber: e.detail.value
     })
   },
 
-  formSubmit: function(e) {
+  formSubmit: function (e) {
     if (!this.data.gameName || !this.data.refereeNumber) {
       this.showTopTips()
       return
@@ -65,31 +65,20 @@ Page({
     let formData = e.detail.value
     formData['openid'] = app.globalData.openid
     console.log("formData: ", formData)
-    wx.showLoading({
-      title: 'Waiting',
-      mask: true
-    })
+    wx.showLoading(config.loadingToast)
     wx.request({
       url: config.createGame,
       data: {
         formData: formData,
       },
       method: 'POST',
-      success: function(res){
+      success: function (res) {
         wx.hideLoading()
-        wx.showToast({
-          icon: 'success',
-          title: 'Success',
-          duration: config.toastDuration,
-        })
-        that.setData({
-          submitResponse: res,
-
-        })
+        wx.showToast(config.successToast)
         console.log("success", res)
       },
 
-      fail: function() {
+      fail: function () {
         console.log("CREATE GAME FAILED!")
         wx.showModal({
           title: '提交失败',

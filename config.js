@@ -1,7 +1,16 @@
 const host = 'www.sorayamah.org'
 const config = {
-  /** toast延续时间 */
-  toastDuration: 1500,
+
+  loadingToast: {
+    title: '加载中...',
+    mask: true
+  },
+
+  successToast: {
+    title: '成功',
+    icon: 'success',
+    duration: 1500,
+  },
   /** 主域名 */
   host,
   /** 创建比赛 */

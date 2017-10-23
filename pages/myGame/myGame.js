@@ -13,12 +13,12 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
   },
-  onShow: function() {
+  onShow: function () {
     wx.startPullDownRefresh();
   },
   onLoad: function () {
     let that = this;
-    
+
     wx.getSystemInfo({
       success: res => {
         that.setData({
@@ -27,15 +27,13 @@ Page({
         });
         that.getGameData();
       }
-    });   
+    });
   },
 
-  getGameData: function() {
+  getGameData: function () {
     let that = this
 
-    wx.showLoading({
-      title: 'waiting',
-    })
+    wx.showLoading(config.loadingToast)
 
     wx.request({
       url: config.getAllGamesUrl,
@@ -62,14 +60,14 @@ Page({
     })
   },
 
-  tabClick: function(e) {
+  tabClick: function (e) {
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
     });
   },
-  
-  onPullDownRefresh: function() {
+
+  onPullDownRefresh: function () {
     this.getGameData();
   }
 })

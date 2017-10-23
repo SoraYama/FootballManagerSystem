@@ -15,6 +15,7 @@
     "color": "#aaa",
     "selectedColor": "#00C624",
     "backgroundColor": "#FFF",
+    "position": "bottom",
     "list": [{
       "pagePath": "pages/createGame/createGame",
       "text": "创建比赛"

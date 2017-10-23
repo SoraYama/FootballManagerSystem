@@ -16,19 +16,19 @@ Page({
     refereeNames: "",
   },
 
-  showTopTips: function() {
+  showTopTips: function () {
     var that = this;
     this.setData({
       showTopTips: true
     });
-    setTimeout(function() {
+    setTimeout(function () {
       that.setData({
         showTopTips: false
       });
     }, 3000);
   },
 
-  onLoad: function(query) {
+  onLoad: function (query) {
     console.log('*** query: ', query);
     this.setData({
       colId: query.colId,
@@ -36,10 +36,7 @@ Page({
       update: query.update,
       own: query.own,
     })
-    wx.showLoading({
-      title: 'Loading',
-      icon: 'Loading',
-    })
+    wx.showLoading(config.loadingToast)
     wx.request({
       url: config.queryById,
       method: 'POST',
@@ -57,29 +54,31 @@ Page({
       },
       fail: err => {
         console.error('query game error!', err);
-        wx.showToast({
-          title: 'Failed!',
+        wx.showModal({
+          title: '加载失败',
+          content: '网络不稳定，请刷新',
+          showCancel: false,
         })
       }
     })
   },
-  bindRefereeNameChange: function(e) {
+  bindRefereeNameChange: function (e) {
     this.setData({
       refereeName: e.detail.value,
     })
   },
-  bindEndRefTimeChange: function(e) {
+  bindEndRefTimeChange: function (e) {
     this.setData({
       endRefTime: e.detail.value,
     })
   },
-  bindStartRefTimeChange: function(e) {
+  bindStartRefTimeChange: function (e) {
     this.setData({
       startRefTime: e.detail.value,
     })
   },
 
-  formSubmit: function(e) {
+  formSubmit: function (e) {
     let that = this
     if (!that.data.refereeName) {
       that.showTopTips()
@@ -87,10 +86,7 @@ Page({
     }
 
     console.log("enrol formData: ", e.detail.value)
-    wx.showLoading({
-      title: 'Waiting',
-      mask: true
-    })
+    wx.showLoading(config.loadingToast)
     let data = e.detail.value
     data['openid'] = app.globalData.openid
     data['gameId'] = this.data.colId
@@ -103,7 +99,7 @@ Page({
         data: data,
       },
       method: 'POST',
-      success: function(res) {
+      success: function (res) {
         wx.hideLoading()
         if (res.statusCode !== 200) {
           wx.showModal({
@@ -112,16 +108,13 @@ Page({
             showCancel: false,
           })
         } else {
-          wx.showToast({
-            title: 'success',
-            duration: config.toastDuration,
-          })
-          setTimeout(wx.navigateBack, config.toastDuration);
+          wx.showToast(config.successToast)
+          setTimeout(wx.navigateBack, config.successToast.duration)
         }
         console.log("success", res)
       },
 
-      fail: function() {
+      fail: function () {
         console.log("ENROL FAILED!")
         wx.hideLoading()
         wx.showModal({
@@ -131,13 +124,11 @@ Page({
         })
       }
     })
-  }, 
+  },
 
-  cancelEnrol: function(e) {
+  cancelEnrol: function (e) {
     let that = this
-    wx.showLoading({
-      title: 'Waiting'
-    })
+    wx.showLoading(config.loadingToast)
     wx.request({
       url: config.cancelEnrol,
       method: 'POST',
@@ -148,13 +139,9 @@ Page({
       success: data => {
         console.log('cancel enrol success: ', data)
         wx.hideLoading()
-        wx.showToast({
-          title: 'success',
-          icon: 'success',
-          duration: config.toastDuration,
-        })
-        setTimeout(wx.navigateBack, config.toastDuration);
-      }, 
+        wx.showToast(config.loadingToast)
+        setTimeout(wx.navigateBack, config.successToast.duration);
+      },
       failed: err => {
         wx.hideLoading()
         console.error('cancel enrol failed: ', err)
@@ -163,11 +150,11 @@ Page({
   },
 
   /** 选派 */
-  assign: function(e) {
+  assign: function (e) {
     let that = this
     console.log('assign', e)
     let openid = e.target.dataset.openid;
-    wx.showLoading()
+    wx.showLoading(config.loadingToast)
     let assign = that.data.game.referees.filter(r => r.openid === openid).shift().assign
     wx.request({
       url: config.assign,
@@ -177,17 +164,13 @@ Page({
         gameId: that.data.game._id,
         assign: assign,
       },
-      success: function(res) {
+      success: function (res) {
         console.log(res)
         wx.hideLoading()
-        wx.showToast({
-          title: 'success',
-          icon: 'success',
-          duration: config.toastDuration,
-        })
-        setTimeout(wx.navigateBack, config.toastDuration);
+        wx.showToast(config.loadingToast)
+        setTimeout(wx.navigateBack, config.successToast.duration);
       },
-      fail: function(err) {
+      fail: function (err) {
         wx.hideLoading()
         wx.showModal({
           title: '选派失败',
@@ -198,20 +181,18 @@ Page({
     })
   },
 
-  onDeleteGame: function(e) {
+  onDeleteGame: function (e) {
     wx.showModal({
       title: '请确认',
       content: '您确定要删除该比赛吗？',
-      success: function(res) {
+      success: function (res) {
         res.confirm ? this.deleteGame() : null
       }
     })
   },
 
-  deleteGame: function() {
-    wx.showLoading({
-      title: 'Loading',
-    })
+  deleteGame: function () {
+    wx.showLoading(config.loadingToast)
     console.log('*** data.game: ', this.data.game)
     wx.request({
       url: config.deleteGame,
@@ -220,24 +201,21 @@ Page({
         openid: app.globalData.openid,
         gameId: this.data.game._id,
       },
-      success: function(res) {
+      success: function (res) {
         console.log('delete game success, res: ', res);
         wx.hideLoading();
-        wx.showToast({
-          title: 'success',
-          duration: config.toastDuration,
-        });
-        setTimeout(wx.navigateBack, config.toastDuration);
+        wx.showToast(config.loadingToast);
+        setTimeout(wx.navigateBack, config.successToast.duration);
       }
     })
   },
 
   /** 转发 */
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
     return {
       title: `赛事报名-${this.data.game.gameName}`,
       path: `/pages/enrol/enrol?colId=${this.data.colId}`,
-      success: function(res) {
+      success: function (res) {
         console.log('share success, res: ', res);
       }
     }
