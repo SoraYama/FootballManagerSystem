@@ -1,0 +1,106 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view> <!-- end of nav_bar  -->
+      <view class="weui-tab__panel">
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          
+          <view class="page__hd">
+            <view class="page__title">注册你的信息</view>
+          </view>
+
+          <form bindreset='formReset' bindsubmit='formSubmit'>
+            <view class="weui-cells__title">基本信息</view>
+            <view class="weui-cells weui-cells_after-title">
+            
+              <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                  <view class="weui-label">姓名</view>
+                </view>
+                <view class="weui-cell__bd">
+                  <input class="weui-input" placeholder="请输入你的姓名" name="refereeName" bindinput="bindRefereeName" value='{{refereeName}}'/>
+                </view>
+              </view>
+
+              <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                  <view class="weui-label">身高</view>
+                </view>
+                <view class="weui-cell__bd" style='width: 50%'>
+                  <picker class="weui-select">
+                  </picker>
+                </view>
+              </view>
+              
+              <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                  <view class="weui-label">手机号码</view>
+                </view>
+                <view class="weui-cell__bd">
+                  <input class="weui-input" type='number' placeholder="请输入手机号码" value="{{refereePhoneNumber}}" name="refereePhoneNumber" bindinput="bindPhoneChange" value='{{refereePhoneNumber}}' />
+                </view>
+              </view>
+      
+              <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                  <view class="weui-label">身份证号</view>
+                </view>
+                <view class="weui-cell__bd">
+                  <input class="weui-input" type='idcard' placeholder="请输入身份证号" value="{{refereeIdNumber}}" name="refereeIdNumber" bindinput="bindIdChange" value='{{refereeIdNumber}}' />
+                </view>
+              </view>
+
+              <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                  <view class="weui-label">京卡卡号</view>
+                </view>
+                <view class="weui-cell__bd">
+                  <input class="weui-input" type='number' placeholder="请输入京卡卡号" name="refereeCardNumber" bindinput="bindCardChange" value='{{refereeCardNumber}}' />
+                </view>
+              </view>
+
+              <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                  <view class="weui-label">联行号</view>
+                </view>
+                <view class="weui-cell__bd">
+                  <input class="weui-input" type='number' placeholder="请输入京卡开户行联行号" name="refereeBankNumber" bindinput="bindBankChange" value='{{refereeBankNumber}}' />
+                </view>
+              </view>
+
+              <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                  <view class="weui-label">裁判等级</view>
+                </view>
+                  <view class="weui-cell__bd" style="margin-right: 0">
+                  <picker value="{{refereeClassIndex}}" name="refereeClassIndex" mode="selector" bindchange="bindClassChange" range='{{refereeClass}}'>
+                    <view class="weui-select">{{refereeClass[refereeClassIndex]}}</view>
+                  </picker>
+                </view>
+              </view>
+
+            </view> <!-- end of weui-cells_after-title  -->
+
+            <view class="weui-btn-area">
+              <button class="weui-btn" type="primary" formType="submit">提交</button>
+              <button class="weui-btn" type="default" formType="reset">重置</button>
+            </view>
+
+          </form>
+
+        </view> <!-- end of we_content 0  -->
+
+      </view> <!-- end of weui-tab__panel  -->
+    </view> <!-- end of weui-tab  -->
+  </view> <!-- end of page_bd  -->
+</view> <!-- end of page  -->
