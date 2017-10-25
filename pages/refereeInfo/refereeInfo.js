@@ -9,12 +9,23 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
 
-    refereeClass: ["国家级","国家一级","国家二级","国家三级","其他"],
+    heights: [],
+    heightIndex: 0,
+
+    refereeClass: "",
+    refereeClasses: ["国家级","国家一级","国家二级","国家三级","其他"],
     refereeClassIndex: 0,
   },
 
   onLoad: function () {
     let that = this;
+    let heights = [];
+    for(let i = 0; i <= 50; i++) {
+      heights.push(`${150 + i}cm`);
+    }
+    this.setData({
+      heights: heights,
+    })
     wx.getSystemInfo({
       success: res => {
         that.setData({

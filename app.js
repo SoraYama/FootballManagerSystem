@@ -52,14 +52,14 @@ App({
                 callback(null, self.globalData.openid)
               },
               fail: function(res) {
-                console.log('拉取用户openid失败，将无法正常使用开放接口等服务', res)
+                console.error('拉取用户openid失败，将无法正常使用开放接口等服务', res)
                 callback(res)
               }
             })
           }
         },
         fail: function(err) {
-          console.log('wx.login 接口调用失败，将无法正常使用开放接口等服务', err)
+          console.error('wx.login 接口调用失败，将无法正常使用开放接口等服务', err)
           callback(err)
         }
       })

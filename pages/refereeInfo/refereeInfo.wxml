@@ -36,8 +36,9 @@
                 <view class="weui-cell__hd">
                   <view class="weui-label">身高</view>
                 </view>
-                <view class="weui-cell__bd" style='width: 50%'>
-                  <picker class="weui-select">
+                <view class="weui-cell__bd">
+                  <picker class="weui-picker" name="refereeHeight" value='{{refereeHeight}}' mode="selector" bindchange="bindHeightChange" range='{{heights}}'>
+                  <view class="weui-select">{{heights[heightIndex]}}</view>
                   </picker>
                 </view>
               </view>
@@ -83,7 +84,7 @@
                   <view class="weui-label">裁判等级</view>
                 </view>
                   <view class="weui-cell__bd" style="margin-right: 0">
-                  <picker value="{{refereeClassIndex}}" name="refereeClassIndex" mode="selector" bindchange="bindClassChange" range='{{refereeClass}}'>
+                  <picker value="{{refereeClassIndex}}" name="refereeClass" mode="selector" bindchange="bindClassChange" range='{{refereeClasses}}'>
                     <view class="weui-select">{{refereeClass[refereeClassIndex]}}</view>
                   </picker>
                 </view>
