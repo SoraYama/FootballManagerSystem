@@ -152,10 +152,12 @@ Page({
   /** 选派 */
   assign: function (e) {
     let that = this
-    console.log('assign', e)
-    let openid = e.target.dataset.openid;
+    console.log('assign event', e)
+    let openid = e.target.dataset.openid
     wx.showLoading(config.loadingToast)
-    let assign = that.data.game.referees.filter(r => r.openid === openid).shift().assign
+    console.log('*** game: ', that.data.game)
+    let assign = that.data.game.referees.filter(r => r.openid === openid).shift().assigned
+    console.log("assign var: ", assign)
     wx.request({
       url: config.assign,
       method: "POST",
