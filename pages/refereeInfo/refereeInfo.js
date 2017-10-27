@@ -15,6 +15,9 @@ Page({
     refereeClass: "",
     refereeClasses: ["国家级","国家一级","国家二级","国家三级","其他"],
     refereeClassIndex: 0,
+
+    weights: [],
+    weightIndex: 0,
   },
 
   onLoad: function () {
@@ -23,8 +26,13 @@ Page({
     for(let i = 0; i <= 50; i++) {
       heights.push(`${150 + i}cm`);
     }
+    let weights = [];
+    for (let i = 0; i <= 80; i++) {
+      weights.push(`${40 + i}kg`);
+    }
     this.setData({
       heights: heights,
+      weights: weights,
     })
     wx.getSystemInfo({
       success: res => {

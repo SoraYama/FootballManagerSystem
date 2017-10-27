@@ -42,6 +42,17 @@
                   </picker>
                 </view>
               </view>
+
+              <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                  <view class="weui-label">体重</view>
+                </view>
+                <view class="weui-cell__bd">
+                  <picker class="weui-picker" name="refereeWeight" value='{{refereeWeight}}' mode="selector" bindchange="bindWeightChange" range='{{weights}}'>
+                  <view class="weui-select">{{weights[weightIndex]}}</view>
+                  </picker>
+                </view>
+              </view>
               
               <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
