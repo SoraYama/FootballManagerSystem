@@ -13,6 +13,9 @@ App({
         this.globalData.openid = openId;
       }
     });
+    this.getUserInfo((userInfo) => {
+      this.globalData.userInfo = userInfo
+    })
   },
 
   getUserInfo: function(cb) {

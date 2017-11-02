@@ -1,5 +1,5 @@
 //creategame.js
-const util = require('../../utils/util.js')
+import util from '../../utils/util.js'
 import config from '../../config.js'
 const app = getApp()
 Page({
@@ -8,6 +8,7 @@ Page({
     gameDate: "2017-01-01",
     gameTime: "00:00",
     gameEndTime: "23:59",
+    gamePublisher: "",
     refereeNumber: null,
     submitResponse: "",
     showTopTips: false,
@@ -28,6 +29,12 @@ Page({
   bindGameName: function (e) {
     this.setData({
       gameName: e.detail.value
+    })
+  },
+
+  bindGamePublisher: function (e) {
+    this.setData({
+      gamePublisher: e.detail.value,
     })
   },
 
@@ -64,6 +71,8 @@ Page({
     var that = this
     let formData = e.detail.value
     formData['openid'] = app.globalData.openid
+    formData['publisherAvatar'] = app.globalData.userInfo.avatarUrl
+    console.log('*********',formData['publisherAvatar'])
     console.log("formData: ", formData)
     wx.showLoading(config.loadingToast)
     wx.request({
