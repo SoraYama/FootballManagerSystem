@@ -31,6 +31,9 @@ const config = {
   assign: `https://${host}/assign`,
   /** 删除比赛 */
   deleteGame: `https://${host}/deletegame`,
+
+  /** 提交裁判员信息 */
+  registReferee: `https://${host}/registinfo`,
 }
 
 module.exports = config

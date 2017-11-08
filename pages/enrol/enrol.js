@@ -187,7 +187,7 @@ Page({
     wx.showModal({
       title: '请确认',
       content: '您确定要删除该比赛吗？',
-      success: function (res) {
+      success: (res) => {
         res.confirm ? this.deleteGame() : null
       }
     })

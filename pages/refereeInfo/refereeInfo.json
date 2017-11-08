@@ -1,5 +1,5 @@
 {
   "navigationBarTitleText": "裁判信息",
-  "enablePullDownRefresh": true,
+  "enablePullDownRefresh": false,
   "backgroundTextStyle": "dark"
 }

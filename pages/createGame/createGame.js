@@ -63,7 +63,7 @@ Page({
   },
 
   formSubmit: function (e) {
-    if (!this.data.gameName || !this.data.refereeNumber) {
+    if (!this.data.gameName || !this.data.refereeNumber || !this.data.gamePublisher) {
       this.showTopTips()
       return
     }
@@ -72,7 +72,7 @@ Page({
     let formData = e.detail.value
     formData['openid'] = app.globalData.openid
     formData['publisherAvatar'] = app.globalData.userInfo.avatarUrl
-    console.log('*********',formData['publisherAvatar'])
+    console.log('*********', formData['publisherAvatar'])
     console.log("formData: ", formData)
     wx.showLoading(config.loadingToast)
     wx.request({

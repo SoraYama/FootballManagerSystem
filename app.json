@@ -19,15 +19,21 @@
     "position": "bottom",
     "list": [{
       "pagePath": "pages/createGame/createGame",
-      "text": "创建比赛"
+      "text": "创建比赛",
+      "iconPath": "assets/icon2.png",
+      "selectedIconPath": "assets/icon2_on.png"
     },
     {
       "pagePath": "pages/myGame/myGame",
-      "text": "我的比赛"
+      "text": "我的比赛",
+      "iconPath": "assets/icon3.png",
+      "selectedIconPath": "assets/icon3_on.png"
     },
     {
       "pagePath": "pages/refereeInfo/refereeInfo",
-      "text": "裁判信息"
+      "text": "裁判信息",
+      "iconPath": "assets/icon4.png",
+      "selectedIconPath": "assets/icon4_on.png"
     }]
   },
   "debug": true
