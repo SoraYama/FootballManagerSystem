@@ -72,10 +72,10 @@
   </view>
   </form>
   
-  <!-- <view class="weui-footer">
+   <view class="weui-footer">
     <view class="weui-footer__links">
-      <navigator url="https://github.com/hyq77766177" class="weui-footer__link">SoraYama</navigator>
+      <navigator url="" class="weui-footer__link">SoraYama</navigator>
     </view>
     <view class="weui-footer__text">Copyright © 2017 sorayamah.org</view>
-  </view> -->
+  </view> 
 </view>

@@ -1,4 +1,7 @@
 <view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+
+  <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">表单缺项</view>
+
   <view class="page__bd">
     <view class="weui-tab">
       <view class="weui-navbar">
@@ -59,7 +62,7 @@
                 </view>
                 <view class="weui-cell__bd">
                   <input class="weui-input" type='number' placeholder="请输入手机号码(必填)" value="{{refereePhoneNumber}}"
-                         name="refereePhoneNumber" bindinput="bindPhoneChange" value='{{refereePhoneNumber}}'  />
+                         name="refereePhoneNumber" bindinput="bindPhoneChange"  />
                 </view>
               </view>
               <view class="weui-cell weui-cell_input">
@@ -68,7 +71,7 @@
                 </view>
                 <view class="weui-cell__bd">
                   <input class="weui-input" type='idcard' placeholder="请输入身份证号" value="{{refereeIdNumber}}"
-                         name="refereeIdNumber" bindinput="bindIdChange" value='{{refereeIdNumber}}'  />
+                         name="refereeIdNumber" bindinput="bindIdChange"  />
                 </view>
               </view>
             </view>

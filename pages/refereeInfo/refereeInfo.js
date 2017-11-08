@@ -77,62 +77,73 @@ Page({
 
   bindRefereeName: function (e) {
     this.setData({
-      refereeName: e.target.value,
+      refereeName: e.detail.value,
     })
   },
 
   bindHeightChange: function (e) {
     this.setData({
       heightIndex: e.detail.value,
+      refereeHeight: heights[e.detail.value],
     })
   },
 
   bindWeightChange: function (e) {
     this.setData({
       weightIndex: e.detail.value,
+      refereeWeight: weights[e.detail.value],
     })
   },
 
   bindPhoneChange: function (e) {
     this.setData({
-      refereePhoneNumber: e.target.value,
+      refereePhoneNumber: e.detail.value,
+    })
+  },
+
+  bindRefereeScholarId: function (e) {
+    this.setData({
+      refereeScholarId: e.detail.value,
     })
   },
 
   bindIdChange: function (e) {
     this.setData({
-      refereeIdNumber: e.target.value,
+      refereeIdNumber: e.detail.value,
     })
   },
 
   bindCardChange: function (e) {
     this.setData({
-      refereeCardNumber: e.target.value,
+      refereeCardNumber: e.detail.value,
     })
   },
 
   bindBankChange: function (e) {
     this.setData({
-      refereeBankNumber: e.target.value,
+      refereeBankNumber: e.detail.value,
     })
   },
 
   bindClassChange: function (e) {
     console.log('*** class e: ', e)
     this.setData({
-      refereeClassIndex: e.detail.value,
+      refereeClassIndes: e.detail.value,
+      refereeClass: refereeClasses[e.detail.value],
     })
   },
 
   formSubmit: function (e) {
+    let formData = e.detail.value
+    console.log("*** referee regist info: ", formData)
+    console.log("*** this data ", this.data)
     if (!this.data.refereeName || !this.data.refereePhoneNumber) {
       this.showTopTips()
       return
     }
-
-    let formData = e.detail.value
+    
     formData['openid'] = app.globalData.openid
-    console.log("*** referee regist info: ", e.detail.value)
+    
     wx.showLoading(config.loadingToast)
     wx.request({
       url: config.registReferee,
