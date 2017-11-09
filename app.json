@@ -1,15 +1,16 @@
 {
-  "pages":[
+  "pages": [
     "pages/createGame/createGame",
     "pages/myGame/myGame",
     "pages/enrol/enrol",
-    "pages/refereeInfo/refereeInfo"
+    "pages/refereeInfo/refereeInfo",
+    "pages/refereeInfo/refereeQuery"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "SoraYama",
-    "navigationBarTextStyle":"white",
+    "navigationBarTextStyle": "white",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
@@ -17,24 +18,26 @@
     "selectedColor": "#00C624",
     "backgroundColor": "#FFF",
     "position": "bottom",
-    "list": [{
-      "pagePath": "pages/createGame/createGame",
-      "text": "创建比赛",
-      "iconPath": "assets/icon2.png",
-      "selectedIconPath": "assets/icon2_on.png"
-    },
-    {
-      "pagePath": "pages/myGame/myGame",
-      "text": "我的比赛",
-      "iconPath": "assets/icon3.png",
-      "selectedIconPath": "assets/icon3_on.png"
-    },
-    {
-      "pagePath": "pages/refereeInfo/refereeInfo",
-      "text": "裁判信息",
-      "iconPath": "assets/icon4.png",
-      "selectedIconPath": "assets/icon4_on.png"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/createGame/createGame",
+        "text": "创建比赛",
+        "iconPath": "assets/icon2.png",
+        "selectedIconPath": "assets/icon2_on.png"
+      },
+      {
+        "pagePath": "pages/myGame/myGame",
+        "text": "我的比赛",
+        "iconPath": "assets/icon3.png",
+        "selectedIconPath": "assets/icon3_on.png"
+      },
+      {
+        "pagePath": "pages/refereeInfo/refereeInfo",
+        "text": "裁判信息",
+        "iconPath": "assets/icon4.png",
+        "selectedIconPath": "assets/icon4_on.png"
+      }
+    ]
   },
   "debug": true
 }

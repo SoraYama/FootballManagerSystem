@@ -156,15 +156,16 @@ Page({
     let openid = e.target.dataset.openid
     wx.showLoading(config.loadingToast)
     console.log('*** game: ', that.data.game)
-    let assign = that.data.game.referees.filter(r => r.openid === openid).shift().assigned
-    console.log("assign var: ", assign)
+    let referee = that.data.game.referees.filter(r => r.openid === openid).shift()
+    if (!referee.assigned) referee["assigned"] = false;
+    console.log("assign var: ", referee);
     wx.request({
       url: config.assign,
       method: "POST",
       data: {
         openid: openid,
         gameId: that.data.game._id,
-        assign: assign,
+        assign: referee.assigned,
       },
       success: function (res) {
         console.log(res)

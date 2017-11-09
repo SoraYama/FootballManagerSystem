@@ -87,8 +87,8 @@ Page({
         console.log("success", res)
       },
 
-      fail: function () {
-        console.log("CREATE GAME FAILED!")
+      fail: function (err) {
+        console.log("CREATE GAME FAILED! Error: ", err)
         wx.showModal({
           title: '提交失败',
           content: '网络不稳定，请重新提交',

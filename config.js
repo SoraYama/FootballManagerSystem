@@ -34,6 +34,10 @@ const config = {
 
   /** 提交裁判员信息 */
   registReferee: `https://${host}/registinfo`,
+  /** 转到裁判信息页面 */
+  showReferee: `https://${host}/showreferee`,
+  /** 根据裁判id查询信息 */
+  queryRefereeById: `https://${host}/refereebyid`,
 }
 
 module.exports = config

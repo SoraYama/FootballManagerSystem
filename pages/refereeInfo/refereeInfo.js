@@ -30,6 +30,13 @@ Page({
     refereeCardNumber: "",
     refereeClass: "",
 
+    isAdmin: null,
+    myInfo: null,
+    allRefereesInfo: [],
+
+    goModify: false,
+    queryData: "",
+
   },
 
   showTopTips: function () {
@@ -66,6 +73,45 @@ Page({
         });
       }
     });
+
+    this.getRefereeData()
+  },
+
+  getRefereeData: function () {
+    wx.showLoading(config.loadingToast)
+
+    const that = this
+    wx.request({
+      url: config.showReferee,
+      method: "POST",
+      data: {
+        openid: app.globalData.openid,
+      },
+      success: res => {
+        console.log("*** show referee data: ", res.data)
+        wx.hideLoading()
+        wx.showToast(config.successToast)
+        let data = res.data      
+
+        that.setData({
+          
+          isAdmin: data.isAdmin,
+          myInfo: data.myInfo,
+          allRefereesInfo: data.refereesInfo,
+
+          refereeName: data.myInfo.refereeName,
+          refereeWeight: data.myInfo.refereeWeight,
+          refereeHeight: data.myInfo.refereeHeight,
+          refereePhoneNumber: data.myInfo.refereePhoneNumber,
+          refereeIdNumber: data.myInfo.refereeIdNumber,
+          refereeScholarId: data.myInfo.refereeScholarId,
+          refereeCardNumber: data.myInfo.refereeCardNumber,
+          refereeBankNumber: data.myInfo.refereeBankNumber,
+          refereeClass: data.myInfo.refereeClass,
+
+        })
+      }
+    })
   },
 
   tabClick: function (e) {
@@ -84,14 +130,14 @@ Page({
   bindHeightChange: function (e) {
     this.setData({
       heightIndex: e.detail.value,
-      refereeHeight: heights[e.detail.value],
+      refereeHeight: this.data.heights[e.detail.value],
     })
   },
 
   bindWeightChange: function (e) {
     this.setData({
       weightIndex: e.detail.value,
-      refereeWeight: weights[e.detail.value],
+      refereeWeight: this.data.weights[e.detail.value],
     })
   },
 
@@ -127,9 +173,10 @@ Page({
 
   bindClassChange: function (e) {
     console.log('*** class e: ', e)
+    let that = this
     this.setData({
-      refereeClassIndes: e.detail.value,
-      refereeClass: refereeClasses[e.detail.value],
+      refereeClassIndex: e.detail.value,
+      refereeClass: that.data.refereeClasses[e.detail.value],
     })
   },
 
@@ -141,9 +188,11 @@ Page({
       this.showTopTips()
       return
     }
-    
+
+    const that = this
+
     formData['openid'] = app.globalData.openid
-    
+
     wx.showLoading(config.loadingToast)
     wx.request({
       url: config.registReferee,
@@ -153,11 +202,23 @@ Page({
         wx.hideLoading()
         wx.showToast(config.successToast)
         console.log("referee regist success, res: ", res)
+        that.getRefereeData()
       },
       fail: err => {
         wx.hideLoading()
         console.error("referee regist failed, err: ", err)
       }
     })
-  }
+  },
+
+  modifyInfo: function (e) {
+    this.setData({
+      goModify: true,
+    })
+  },
+
+  onPullDownRefresh: function () {
+    this.getRefereeData();
+  },
+
 })

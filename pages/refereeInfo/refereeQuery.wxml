@@ -1,0 +1,47 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">裁判信息</view>
+  </view>
+  <view class="weui-form-preview">
+    <view class="weui-form-preview__hd">
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">姓名</view>
+        <view class="weui-form-preview__value_in-hd">{{info.refereeName}}</view>
+      </view>
+    </view>
+    <view class="weui-form-preview__bd">
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">身高</view>
+        <view class="weui-form-preview__value">{{info.refereeHeight}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">体重</view>
+        <view class="weui-form-preview__value">{{info.refereeWeight}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">手机</view>
+        <view class="weui-form-preview__value">{{info.refereePhoneNumber}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">身份证号</view>
+        <view class="weui-form-preview__value">{{info.refereeIdNumber}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">学号</view>
+        <view class="weui-form-preview__value">{{info.refereeScholarId}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">京卡卡号</view>
+        <view class="weui-form-preview__value">{{info.refereeCardNumber}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">联行号</view>
+        <view class="weui-form-preview__value">{{info.refereeBankNumber}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">裁判等级</view>
+        <view class="weui-form-preview__value">{{info.refereeClass}}</view>
+      </view>
+    </view>
+  </view>
+</view>

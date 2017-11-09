@@ -1,28 +1,30 @@
-<!--myGame.wxml-->
+<!-- myGame.wxml -->
 <view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
     <view class="page__bd">
         <view class="weui-tab">
             <view class="weui-navbar">
                 <block wx:for="{{tabs}}" wx:key="*this">
-                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}"
+                          bindtap="tabClick">
                         <view class="weui-navbar__title">{{item}}</view>
                     </view>
                 </block>
-                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+                <view class="weui-navbar__slider"
+                      style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);">
+                
+                </view>
             </view>
             <view class="weui-tab__panel">
                 <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
                     <view class="page__hd">
                         <view class="page__title">现有比赛</view>
                     </view>
-
                     <block wx:if="{{availableGames.length === 0}}">
                         <view class="weui-loadmore weui-loadmore_line">
                             <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
                         </view>
                     </block>
-
-                    <view wx:for="{{availableGames}}" wx:key="*this" >
+                    <view wx:for="{{availableGames}}" wx:key="*this">
                         <view class="page__bd">
                             <view class="weui-form-preview">
                                 <view class="weui-form-preview__hd">
@@ -34,120 +36,132 @@
                                 <view class="weui-form-preview__bd">
                                     <view class="weui-form-preview__item">
                                         <view class="weui-form-preview__label">发布者</view>
-                                        <view class="weui-form-preview__value">{{item.gamePublisher}}</view>
+                                        <view class="weui-form-preview__value">
+                                            <image src="{{item.publisherAvatar}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                                            {{item.gamePublisher}}
+                                        </view>
+                                        </view>
+                                        <view class="weui-form-preview__item">
+                                            <view class="weui-form-preview__label">日期</view>
+                                            <view class="weui-form-preview__value">{{item.gameDate}}</view>
+                                        </view>
+                                        <view class="weui-form-preview__item">
+                                            <view class="weui-form-preview__label">时间</view>
+                                            <view class="weui-form-preview__value">{{item.gameTime}} ~ {{item.gameEndTime}}</view>
+                                        </view>
+                                        <view class="weui-form-preview__item">
+                                            <view class="weui-form-preview__label">需要裁判</view>
+                                            <view class="weui-form-preview__value">{{item.refereeNumber}}</view>
+                                        </view>
                                     </view>
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">日期</view>
-                                        <view class="weui-form-preview__value">{{item.gameDate}}</view>
+                                    <view class="weui-form-preview__ft">
+                                        <navigator url="/pages/enrol/enrol?colId={{item._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary"
+                                                   hover-class="weui-form-preview__btn_active">报名</navigator>
                                     </view>
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">时间</view>
-                                        <view class="weui-form-preview__value">{{item.gameTime}} ~ {{item.gameEndTime}}</view>
-                                    </view>
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">需要裁判</view>
-                                        <view class="weui-form-preview__value">{{item.refereeNumber}}</view>
-                                    </view>
-                                </view>
-                                <view class="weui-form-preview__ft">
-                                    <navigator url="/pages/enrol/enrol?colId={{item._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">报名</navigator>
-                            </view>
-                        </view>
-                        </view>
-                    </view>
-                </view>
-                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-                    <view class="page__hd">
-                        <view class="page__title">我发布的</view>
-                    </view>
-
-                    <block wx:if="{{myCreatedGames.length === 0}}">
-                        <view class="weui-loadmore weui-loadmore_line">
-                            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
-                        </view>
-                    </block>
-
-                    <view wx:for="{{myCreatedGames}}" wx:key="*this" >
-                        <view class="page__bd">
-                            <view class="weui-form-preview">
-                                <view class="weui-form-preview__hd">
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">比赛名称</view>
-                                        <view class="weui-form-preview__value_in-hd">{{item.gameName}}</view>
-                                    </view>
-                                </view>
-                                <view class="weui-form-preview__bd">
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">发布者</view>
-                                        <view class="weui-form-preview__value">{{item.gamePublisher}}</view>
-                                    </view>
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">日期</view>
-                                        <view class="weui-form-preview__value">{{item.gameDate}}</view>
-                                    </view>
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">时间</view>
-                                        <view class="weui-form-preview__value">{{item.gameTime}} ~ {{item.gameEndTime}}</view>
-                                    </view>
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">需要裁判</view>
-                                        <view class="weui-form-preview__value">{{item.refereeNumber}}</view>
-                                    </view>
-                                </view>
-                                <view class="weui-form-preview__ft">
-                                    <navigator url="/pages/enrol/enrol?colId={{item._id}}&own=true" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">查看</navigator>
                                 </view>
                             </view>
                         </view>
                     </view>
-                </view>
-                <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-                    <view class="page__hd">
-                        <view class="page__title">我报名的</view>
-                    </view>
-
-                     <block wx:if="{{myEnroledGames.length === 0}}">
-                        <view class="weui-loadmore weui-loadmore_line">
-                            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+                    <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+                        <view class="page__hd">
+                            <view class="page__title">我发布的</view>
                         </view>
-                    </block>
-
-                    <view wx:for="{{myEnroledGames}}" wx:key="*this" >
-                        <view class="page__bd">
-                            <view class="weui-form-preview">
-                                <view class="weui-form-preview__hd">
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">比赛名称</view>
-                                        <view class="weui-form-preview__value_in-hd">{{item.gameName}}</view>
+                        <block wx:if="{{myCreatedGames.length === 0}}">
+                            <view class="weui-loadmore weui-loadmore_line">
+                                <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+                            </view>
+                        </block>
+                        <view wx:for="{{myCreatedGames}}" wx:key="*this">
+                            <view class="page__bd">
+                                <view class="weui-form-preview">
+                                    <view class="weui-form-preview__hd">
+                                        <view class="weui-form-preview__item">
+                                            <view class="weui-form-preview__label">比赛名称</view>
+                                            <view class="weui-form-preview__value_in-hd">{{item.gameName}}</view>
+                                        </view>
+                                    </view>
+                                    <view class="weui-form-preview__bd">
+                                        <view class="weui-form-preview__item">
+                                            <view class="weui-form-preview__label">发布者</view>
+                                            <view class="weui-form-preview__value">
+                                                <image src="{{item.publisherAvatar}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                                                {{item.gamePublisher}}
+                                        </view>
+                                            </view>
+                                            <view class="weui-form-preview__item">
+                                                <view class="weui-form-preview__label">日期</view>
+                                                <view class="weui-form-preview__value">{{item.gameDate}}</view>
+                                            </view>
+                                            <view class="weui-form-preview__item">
+                                                <view class="weui-form-preview__label">时间</view>
+                                                <view class="weui-form-preview__value">{{item.gameTime}} ~ {{item.gameEndTime}}</view>
+                                            </view>
+                                            <view class="weui-form-preview__item">
+                                                <view class="weui-form-preview__label">需要裁判</view>
+                                                <view class="weui-form-preview__value">{{item.refereeNumber}}</view>
+                                            </view>
+                                        </view>
+                                        <view class="weui-form-preview__ft">
+                                            <navigator url="/pages/enrol/enrol?colId={{item._id}}&own=true"
+                                                       class="weui-form-preview__btn weui-form-preview__btn_primary"
+                                                       hover-class="weui-form-preview__btn_active">查看</navigator>
+                                        </view>
                                     </view>
                                 </view>
-                                <view class="weui-form-preview__bd">
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">发布者</view>
-                                        <view class="weui-form-preview__value">{{item.gamePublisher}}</view>
-                                    </view>
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">日期</view>
-                                        <view class="weui-form-preview__value">{{item.gameDate}}</view>
-                                    </view>
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">时间</view>
-                                        <view class="weui-form-preview__value">{{item.gameTime}} ~ {{item.gameEndTime}}</view>
-                                    </view>
-                                    <view class="weui-form-preview__item">
-                                        <view class="weui-form-preview__label">需要裁判</view>
-                                        <view class="weui-form-preview__value">{{item.refereeNumber}}</view>
-                                    </view>
+                            </view>
+                        </view>
+                        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+                            <view class="page__hd">
+                                <view class="page__title">我报名的</view>
+                            </view>
+                            <block wx:if="{{myEnroledGames.length === 0}}">
+                                <view class="weui-loadmore weui-loadmore_line">
+                                    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
                                 </view>
-                                <view class="weui-form-preview__ft">
-                                    <navigator url="/pages/enrol/enrol?colId={{item._id}}&cancel=true" class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">取消报名</navigator>
-                                    <navigator url="/pages/enrol/enrol?colId={{item._id}}&update=true" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">修改信息</navigator>
+                            </block>
+                            <view wx:for="{{myEnroledGames}}" wx:key="*this">
+                                <view class="page__bd">
+                                    <view class="weui-form-preview">
+                                        <view class="weui-form-preview__hd">
+                                            <view class="weui-form-preview__item">
+                                                <view class="weui-form-preview__label">比赛名称</view>
+                                                <view class="weui-form-preview__value_in-hd">{{item.gameName}}</view>
+                                            </view>
+                                        </view>
+                                        <view class="weui-form-preview__bd">
+                                            <view class="weui-form-preview__item">
+                                                <view class="weui-form-preview__label">发布者</view>
+                                                <view class="weui-form-preview__value">
+                                                    <image src="{{item.publisherAvatar}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                                                    {{item.gamePublisher}}
+                                                </view>
+                                                </view>
+                                                <view class="weui-form-preview__item">
+                                                    <view class="weui-form-preview__label">日期</view>
+                                                    <view class="weui-form-preview__value">{{item.gameDate}}</view>
+                                                </view>
+                                                <view class="weui-form-preview__item">
+                                                    <view class="weui-form-preview__label">时间</view>
+                                                    <view class="weui-form-preview__value">{{item.gameTime}} ~ {{item.gameEndTime}}</view>
+                                                </view>
+                                                <view class="weui-form-preview__item">
+                                                    <view class="weui-form-preview__label">需要裁判</view>
+                                                    <view class="weui-form-preview__value">{{item.refereeNumber}}</view>
+                                                </view>
+                                            </view>
+                                            <view class="weui-form-preview__ft">
+                                                <navigator url="/pages/enrol/enrol?colId={{item._id}}&cancel=true"
+                                                           class="weui-form-preview__btn weui-form-preview__btn_default"
+                                                           hover-class="weui-form-preview__btn_active">取消报名</navigator>
+                                                <navigator url="/pages/enrol/enrol?colId={{item._id}}&update=true"
+                                                           class="weui-form-preview__btn weui-form-preview__btn_primary"
+                                                           hover-class="weui-form-preview__btn_active">修改信息</navigator>
+                                            </view>
+                                        </view>
+                                    </view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
             </view>
-        </view>
-    </view>
-</view>
