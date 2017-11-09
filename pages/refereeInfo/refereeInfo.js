@@ -110,6 +110,19 @@ Page({
           refereeClass: data.myInfo.refereeClass,
 
         })
+
+        app.globalData.myInfo = {
+          refereeName: data.myInfo.refereeName,
+          refereeWeight: data.myInfo.refereeWeight,
+          refereeHeight: data.myInfo.refereeHeight,
+          refereePhoneNumber: data.myInfo.refereePhoneNumber,
+          refereeIdNumber: data.myInfo.refereeIdNumber,
+          refereeScholarId: data.myInfo.refereeScholarId,
+          refereeCardNumber: data.myInfo.refereeCardNumber,
+          refereeBankNumber: data.myInfo.refereeBankNumber,
+          refereeClass: data.myInfo.refereeClass,
+        }
+        
       }
     })
   },

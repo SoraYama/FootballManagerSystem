@@ -1,5 +1,5 @@
 //app.js
-
+import config from './config.js'
 const openIdUrl = require('./config.js').openIdUrl
 const util = require('./utils/util.js')
 
@@ -72,5 +72,6 @@ App({
   globalData: {
     userInfo: null,
     openid: null,
+    myInfo: null,
   }
 })

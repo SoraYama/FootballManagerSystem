@@ -40,6 +40,7 @@
 
   <block wx:if="{{!cancel && !own}}">
     <view class="weui-cells__title">请输入报名信息</view>
+    <view class="weui-cells__title">注意：如需修改信息请尽早（在选派之前）修改</view>
     <form bindreset='formReset' bindsubmit='formSubmit'>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
@@ -47,7 +48,7 @@
             <view class="weui-label">姓名</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入你的姓名" name="refereeName" bindinput="bindRefereeNameChange" value='{{refereeName}}'/>
+            <input class="weui-input" placeholder="请输入你的姓名" name="refereeName" bindinput="bindRefereeNameChange" value='{{myName}}'/>
           </view>
       </view>
       <view class="weui-cell weui-cell_input">

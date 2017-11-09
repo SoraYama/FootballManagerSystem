@@ -148,6 +148,10 @@
                                                     <view class="weui-form-preview__label">需要裁判</view>
                                                     <view class="weui-form-preview__value">{{item.refereeNumber}}</view>
                                                 </view>
+                                                <view class="weui-form-preview__item">
+                                                    <view class="weui-form-preview__label">是否选派</view>
+                                                    <view class="weui-form-preview__value" style='color: {{item.assigned ? "green":"red"}}'>{{item.assigned ? "已选派" : "尚未"}}</view>
+                                                </view>
                                             </view>
                                             <view class="weui-form-preview__ft">
                                                 <navigator url="/pages/enrol/enrol?colId={{item._id}}&cancel=true"

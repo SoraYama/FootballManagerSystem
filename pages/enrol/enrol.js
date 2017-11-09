@@ -14,6 +14,7 @@ Page({
     startRefTime: "00:00",
     endRefTime: "23:59",
     refereeNames: "",
+    myName: "",
   },
 
   showTopTips: function () {
@@ -30,11 +31,14 @@ Page({
 
   onLoad: function (query) {
     console.log('*** query: ', query);
+    const myName = app.globalData.myInfo && app.globalData.myInfo.refereeName
+    console.log("*** my name: ", myName)
     this.setData({
       colId: query.colId,
       cancel: query.cancel,
       update: query.update,
       own: query.own,
+      myName: myName,
     })
     wx.showLoading(config.loadingToast)
     wx.request({
@@ -64,7 +68,7 @@ Page({
   },
   bindRefereeNameChange: function (e) {
     this.setData({
-      refereeName: e.detail.value,
+      myName: e.detail.value,
     })
   },
   bindEndRefTimeChange: function (e) {
@@ -80,7 +84,7 @@ Page({
 
   formSubmit: function (e) {
     let that = this
-    if (!that.data.refereeName) {
+    if (!that.data.myName) {
       that.showTopTips()
       return
     }
