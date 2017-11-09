@@ -221,4 +221,15 @@ Page({
     this.getRefereeData();
   },
 
+  /** 转发 */
+  onShareAppMessage: function (res) {
+    return {
+      title: `信息注册`,
+      path: `/pages/refereeInfo/refereeInfo`,
+      success: function (res) {
+        console.log('share success, res: ', res);
+      }
+    }
+  },
+
 })
