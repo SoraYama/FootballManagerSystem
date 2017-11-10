@@ -74,7 +74,7 @@
   
    <view class="weui-footer">
     <view class="weui-footer__links">
-      <navigator url="" class="weui-footer__link">SoraYama</navigator>
+      <view class="weui-footer__link">SoraYama</view>
     </view>
     <view class="weui-footer__text">Copyright © 2017 sorayamah.org</view>
   </view> 

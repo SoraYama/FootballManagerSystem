@@ -8,10 +8,16 @@ Page({
     availableGames: [],
     myEnroledGames: [],
     myCreatedGames: [],
+
+    filteredGames: [],
+
     tabs: ['现有比赛', '我发布的', '我报名的'],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
+
+    inputShowed: false,
+    inputVal: "",
   },
   onShow: function () {
     wx.startPullDownRefresh();
@@ -52,11 +58,30 @@ Page({
           myEnroledGames: gameData.myEnroledGames,
           myCreatedGames: gameData.myCreatedGames,
         })
+
         wx.stopPullDownRefresh()
+        that.setCurrentArr(null)
       },
       failed: err => {
         console.error('get games err: ', err)
       }
+    })
+  },
+
+  setCurrentArr: function (nameStr) {
+    let gameArr = null;
+
+    console.debug("*** this.data: ", this.data)
+    gameArr = this.data.activeIndex === "0" ? this.data.availableGames : (this.data.activeIndex === "1" ? this.data.myCreatedGames : this.data.myEnroledGames)
+    console.debug("*** this.data.activeindex: ", this.data.activeIndex)
+    console.debug("*** after switch: ", gameArr)
+    const filtered = gameArr.filter(e => {
+      if (!nameStr) { return true }
+      return e.gameName.indexOf(nameStr) >= 0
+    })
+    console.debug("*** after filter: ", filtered)
+    this.setData({
+      filteredGames: filtered,
     })
   },
 
@@ -65,6 +90,30 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
     });
+    this.setCurrentArr(null)
+  },
+
+  showInput: function () {
+    this.setData({
+      inputShowed: true
+    });
+  },
+  hideInput: function () {
+    this.setData({
+      inputVal: "",
+      inputShowed: false
+    });
+  },
+  clearInput: function () {
+    this.setData({
+      inputVal: ""
+    });
+  },
+  inputTyping: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
+    this.setCurrentArr(e.detail.value)
   },
 
   onPullDownRefresh: function () {

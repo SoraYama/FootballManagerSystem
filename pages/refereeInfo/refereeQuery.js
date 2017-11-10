@@ -21,7 +21,6 @@ Page({
       success: res => {
         console.log("query referee data: ", res.data)
         wx.hideLoading()
-        wx.showToast(config.successToast)
         this.setData({
           info: res.data,
         })

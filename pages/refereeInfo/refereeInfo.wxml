@@ -114,7 +114,7 @@
                     <view class="weui-label">手机号码</view>
                   </view>
                   <view class="weui-cell__bd">
-                    <input class="weui-input" type='number' placeholder="请输入手机号码(必填)" value="{{refereePhoneNumber}}"
+                    <input class="weui-input" type='number' placeholder="请输入手机号码" value="{{refereePhoneNumber}}"
                            name="refereePhoneNumber" bindinput="bindPhoneChange"  />
                   </view>
                 </view>
@@ -172,6 +172,7 @@
                   </view>
                 </view>
               </view>
+              <view class="weui-cells__title">声明：本小程序收集到用户的个人数据将不会被作选派裁判、发放劳务等之外的用途，并保证对用户数据保密</view>
               <!-- end of weui-cells_after-title -->
               <view class="weui-btn-area">
                 <button class="weui-btn" type="primary" formType="submit">提交</button>

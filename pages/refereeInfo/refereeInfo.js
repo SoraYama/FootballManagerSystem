@@ -90,11 +90,10 @@ Page({
       success: res => {
         console.log("*** show referee data: ", res.data)
         wx.hideLoading()
-        wx.showToast(config.successToast)
-        let data = res.data      
+        let data = res.data
 
         that.setData({
-          
+
           isAdmin: data.isAdmin,
           myInfo: data.myInfo,
           allRefereesInfo: data.refereesInfo,
@@ -122,7 +121,9 @@ Page({
           refereeBankNumber: data.myInfo.refereeBankNumber,
           refereeClass: data.myInfo.refereeClass,
         }
-        
+
+        wx.stopPullDownRefresh()
+
       }
     })
   },
@@ -197,7 +198,7 @@ Page({
     let formData = e.detail.value
     console.log("*** referee regist info: ", formData)
     console.log("*** this data ", this.data)
-    if (!this.data.refereeName || !this.data.refereePhoneNumber) {
+    if (!this.data.refereeName) {
       this.showTopTips()
       return
     }
