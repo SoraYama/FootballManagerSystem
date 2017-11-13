@@ -85,28 +85,26 @@
                            value='{{refereeName}}'  />
                   </view>
                 </view>
-                <view class="weui-cell weui-cell_input">
+                <view class="weui-cell weui-cell_select">
                   <view class="weui-cell__hd">
-                    <view class="weui-label">身高</view>
+                    <view class="weui-label" style="margin-left: 15px">身高</view>
                   </view>
-                  <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__bd ">
-                      <picker class="weui-picker" name="refereeHeight" value='{{refereeHeight}}' mode="selector"
-                              bindchange="bindHeightChange" range='{{heights}}'>
-                        <view class="weui-select">{{heights[heightIndex]}}</view>
-                      </picker>
-                    </view>
+                  <view class="weui-cell__bd ">
+                    <picker class="weui-picker" name="refereeHeight" value='{{refereeHeight}}' mode="selector"
+                            bindchange="bindHeightChange" range='{{heights}}'>
+                      <view class="weui-select">{{heights[heightIndex]}}</view>
+                    </picker>
                   </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
                   <view class="weui-cell__hd">
-                    <view class="weui-label" style="margin-left: 10px">体重</view>
+                    <view class="weui-label" style="margin-left: 15px">体重</view>
                   </view>
-                  <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__bd">
-                      <picker class="weui-picker" name="refereeWeight" value='{{refereeWeight}}' mode="selector"
-                              bindchange="bindWeightChange" range='{{weights}}'>
-                        <view class="weui-select">{{weights[weightIndex]}}</view>
-                      </picker>
-                    </view>
+                  <view class="weui-cell__bd">
+                    <picker class="weui-picker" name="refereeWeight" value='{{refereeWeight}}' mode="selector"
+                            bindchange="bindWeightChange" range='{{weights}}'>
+                      <view class="weui-select">{{weights[weightIndex]}}</view>
+                    </picker>
                   </view>
                 </view>
                 <view class="weui-cell weui-cell_input">
@@ -165,8 +163,8 @@
                     <view class="weui-label" style="margin-left: 15px">裁判等级</view>
                   </view>
                   <view class="weui-cell__bd">
-                    <picker value="{{refereeClass}}" name="refereeClass" mode="selector"
-                            bindchange="bindClassChange" range='{{refereeClasses}}'>
+                    <picker value="{{refereeClass}}" name="refereeClass" mode="selector" bindchange="bindClassChange"
+                            range='{{refereeClasses}}'>
                       <view class="weui-select">{{refereeClasses[refereeClassIndex]}}</view>
                     </picker>
                   </view>

@@ -1,7 +1,5 @@
 //app.js
 import config from './config.js'
-const openIdUrl = require('./config.js').openIdUrl
-const util = require('./utils/util.js')
 
 App({
   onLaunch: function() {
@@ -44,7 +42,7 @@ App({
           console.log('*** login data: ', data)
           if (data.code) {
             wx.request({
-              url: openIdUrl,
+              url: config.openIdUrl,
               data: {
                 code: data.code
               },

@@ -20,7 +20,7 @@ Page({
     inputVal: "",
   },
   onShow: function () {
-    wx.startPullDownRefresh();
+    this.getGameData()
   },
   onLoad: function () {
     let that = this;
@@ -117,6 +117,6 @@ Page({
   },
 
   onPullDownRefresh: function () {
-    this.getGameData();
+    this.getGameData()
   }
 })
