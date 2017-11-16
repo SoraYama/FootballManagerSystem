@@ -94,6 +94,7 @@ Page({
     let data = e.detail.value
     data['openid'] = app.globalData.openid
     data['gameId'] = this.data.colId
+    data['userInfo'] = app.globalData.userInfo
 
     const URL = that.data.update ? config.updateEnrol : config.enrol
 
@@ -211,7 +212,7 @@ Page({
       success: function (res) {
         console.log('delete game success, res: ', res);
         wx.hideLoading();
-        wx.showToast(config.loadingToast);
+        wx.showToast(config.successToast);
         setTimeout(wx.navigateBack, config.successToast.duration);
       }
     })

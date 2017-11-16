@@ -12,6 +12,13 @@ Page({
     refereeNumber: null,
     submitResponse: "",
     showTopTips: false,
+    isAdmin: false,
+  },
+
+  onLoad: function() {
+    this.setData({
+      isAdmin: app.globalData.isAdmin
+    })
   },
 
   showTopTips: function () {

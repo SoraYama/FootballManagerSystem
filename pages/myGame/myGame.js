@@ -1,6 +1,7 @@
 //myGame.js
 import util from '../../utils/util.js'
 import config from '../../config.js'
+
 const sliderWidth = 96;
 let app = getApp()
 Page({
@@ -31,12 +32,23 @@ Page({
           sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex,
         });
-        that.getGameData();
+        let interval = null
+        if (!app.globalData.openid) {
+          interval = setInterval(() => {
+            if (app.globalData.openid) {
+              that.getGameData()
+              clearInterval(interval)
+            }
+          }, 1000);
+        } else {
+          that.getGameData()
+        }
       }
-    });
+    })
   },
 
   getGameData: function () {
+    if (!app.globalData.openid) return
     let that = this
 
     wx.showLoading(config.loadingToast)
@@ -72,13 +84,21 @@ Page({
     let gameArr = null;
 
     console.debug("*** this.data: ", this.data)
-    gameArr = this.data.activeIndex === "0" ? this.data.availableGames : (this.data.activeIndex === "1" ? this.data.myCreatedGames : this.data.myEnroledGames)
+    gameArr = (this.data.activeIndex === "0" || this.data.activeIndex === 0) ? this.data.availableGames : (this.data.activeIndex === "1" ? this.data.myCreatedGames : this.data.myEnroledGames)
     console.debug("*** this.data.activeindex: ", this.data.activeIndex)
     console.debug("*** after switch: ", gameArr)
-    const filtered = gameArr.filter(e => {
-      if (!nameStr) { return true }
-      return e.gameName.indexOf(nameStr) >= 0
+    let filtered = [];
+    if(gameArr) {
+      filtered = gameArr.filter(e => {
+        if (!nameStr) { return true }
+        return e.gameName.indexOf(nameStr) >= 0 || e.gamePublisher.indexOf(nameStr) >= 0
+      })
+    }
+    filtered.sort((a, b) => {
+      console.debug("*** a: ", a)
+      return parseInt(a.gameDate.split("-").join("")) - parseInt(b.gameDate.split("-").join(""))
     })
+
     console.debug("*** after filter: ", filtered)
     this.setData({
       filteredGames: filtered,

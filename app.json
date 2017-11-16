@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/createGame/createGame",
     "pages/myGame/myGame",
+    "pages/createGame/createGame",
     "pages/enrol/enrol",
     "pages/refereeInfo/refereeInfo",
     "pages/refereeInfo/refereeQuery"
@@ -9,7 +9,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#000",
-    "navigationBarTitleText": "SoraYama",
+    "navigationBarTitleText": "足球裁判选派",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#F8F8F8"
   },
@@ -20,16 +20,16 @@
     "position": "bottom",
     "list": [
       {
-        "pagePath": "pages/createGame/createGame",
-        "text": "创建比赛",
-        "iconPath": "assets/icon2.png",
-        "selectedIconPath": "assets/icon2_on.png"
-      },
-      {
         "pagePath": "pages/myGame/myGame",
         "text": "我的比赛",
         "iconPath": "assets/icon3.png",
         "selectedIconPath": "assets/icon3_on.png"
+      },
+      {
+        "pagePath": "pages/createGame/createGame",
+        "text": "创建比赛",
+        "iconPath": "assets/icon2.png",
+        "selectedIconPath": "assets/icon2_on.png"
       },
       {
         "pagePath": "pages/refereeInfo/refereeInfo",
@@ -39,5 +39,5 @@
       }
     ]
   },
-  "debug": false
+  "debug": true
 }

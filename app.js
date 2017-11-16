@@ -40,6 +40,7 @@ App({
       wx.login({
         success: function(data) {
           console.log('*** login data: ', data)
+          wx.showLoading(config.loadingToast)
           if (data.code) {
             wx.request({
               url: config.openIdUrl,
@@ -48,8 +49,11 @@ App({
               },
               method: 'POST',
               success: function(res) {
+                wx.hideLoading()
                 console.log('拉取openid成功', res)
                 self.globalData.openid = res.data.openid
+                self.globalData.isAdmin = res.data.isAdmin
+                console.log(self.globalData)
                 callback(null, self.globalData.openid)
               },
               fail: function(res) {
@@ -71,5 +75,6 @@ App({
     userInfo: null,
     openid: null,
     myInfo: null,
+    isAdmin: false,
   }
 })
