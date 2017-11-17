@@ -11,10 +11,14 @@ Page({
     cancel: false,
     update: false,
     own: false,
-    startRefTime: "00:00",
-    endRefTime: "23:59",
+
     refereeNames: "",
     myName: "",
+
+    checkboxItems: [
+      // {name: 'standard is dealt for u.', value: '0', checked: true},
+      // {name: 'standard is dealicient for u.', value: '1'}
+    ],
   },
 
   showTopTips: function () {
@@ -41,6 +45,10 @@ Page({
       myName: myName,
     })
     wx.showLoading(config.loadingToast)
+    this.getGameData()
+  },
+
+  getGameData() {
     wx.request({
       url: config.queryById,
       method: 'POST',
@@ -51,10 +59,19 @@ Page({
         console.log('query game: ', data);
         wx.hideLoading()
         let _refereeNames = data.data.referees && data.data.referees.filter(r => r.assigned).map(r => r.refereeName).join(", ")
+        let checks = data.data.gameAvailablePeriod.map((t, i) => {
+          return {
+            checked: false,
+            value: i,
+            name: t,
+          };
+        })
         this.setData({
           game: data.data,
           refereeNames: _refereeNames,
+          checkboxItems: checks,
         });
+        console.log('*** enrol data.checkboxitems: ', this.data.checkboxItems)
       },
       fail: err => {
         console.error('query game error!', err);
@@ -66,19 +83,31 @@ Page({
       }
     })
   },
+
   bindRefereeNameChange: function (e) {
     this.setData({
       myName: e.detail.value,
     })
   },
-  bindEndRefTimeChange: function (e) {
+
+  checkboxChange: function (e) {
+    console.log('*** checkbox e ', e.detail.value)
+    var checkboxItems = this.data.checkboxItems, values = e.detail.value;
+    for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
+      checkboxItems[i].checked = false;
+
+      for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
+        if (checkboxItems[i].value == values[j]) {
+          checkboxItems[i].checked = true;
+          break;
+        }
+      }
+    }
     this.setData({
-      endRefTime: e.detail.value,
+      checkboxItems: checkboxItems,
     })
-  },
-  bindStartRefTimeChange: function (e) {
     this.setData({
-      startRefTime: e.detail.value,
+      availablePeriod: this.data.game.gameAvailablePeriod.filter((e, i) => this.data.checkboxItems.indexOf(i) >= 0),
     })
   },
 
@@ -95,6 +124,7 @@ Page({
     data['openid'] = app.globalData.openid
     data['gameId'] = this.data.colId
     data['userInfo'] = app.globalData.userInfo
+    data['availablePeriod'] = this.data.availablePeriod
 
     const URL = that.data.update ? config.updateEnrol : config.enrol
 
@@ -175,8 +205,8 @@ Page({
       success: function (res) {
         console.log(res)
         wx.hideLoading()
-        wx.showToast(config.loadingToast)
-        setTimeout(wx.navigateBack, config.successToast.duration);
+        wx.showToast(config.successToast)
+        that.getGameData()
       },
       fail: function (err) {
         wx.hideLoading()

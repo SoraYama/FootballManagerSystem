@@ -9,6 +9,7 @@ Page({
     gameTime: "00:00",
     gameEndTime: "23:59",
     gamePublisher: "",
+    gameAvailablePeriod: "",
     refereeNumber: null,
     submitResponse: "",
     showTopTips: false,
@@ -69,6 +70,12 @@ Page({
     })
   },
 
+  bindAvailablePeriod: function (e) {
+    this.setData({
+      gameAvailablePeriod: e.detail.value
+    })
+  },
+
   formSubmit: function (e) {
     if (!this.data.gameName || !this.data.refereeNumber || !this.data.gamePublisher) {
       this.showTopTips()
@@ -77,10 +84,11 @@ Page({
 
     var that = this
     let formData = e.detail.value
+    let available_period = this.data.gameAvailablePeriod.split(/\s+/g)
     formData['openid'] = app.globalData.openid
     formData['publisherAvatar'] = app.globalData.userInfo.avatarUrl
-    console.log('*********', formData['publisherAvatar'])
-    console.log("formData: ", formData)
+    formData['gameAvailablePeriod'] = available_period
+    console.log("*** formData: ", formData)
     wx.showLoading(config.loadingToast)
     wx.request({
       url: config.createGame,
@@ -91,7 +99,7 @@ Page({
       success: function (res) {
         wx.hideLoading()
         wx.showToast(config.successToast)
-        console.log("success", res)
+        console.log("create game success", res)
       },
 
       fail: function (err) {

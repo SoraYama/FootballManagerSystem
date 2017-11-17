@@ -65,6 +65,14 @@
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
+          <view class="weui-label">可选时段</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入可选时段，用空格分开" name="gameAvailablePeriod" bindinput="bindAvailablePeriod" value='{{gameAvailablePeriod}}'/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
           <view class="weui-label">裁判数</view>
         </view>
         <view class="weui-cell__bd">
@@ -78,12 +86,4 @@
       </view>
     </form>
   </block>
-
-  <view class="weui-footer weui-footer_fixed-bottom">
-    <view class="weui-footer__links">
-      <view class="weui-footer__link">SoraYama</view>
-    </view>
-    <view class="weui-footer__text">Copyright © 2017 sorayamah.org</view>
-  </view> 
-
 </view>

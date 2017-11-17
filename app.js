@@ -3,16 +3,16 @@ import config from './config.js'
 
 App({
   onLaunch: function() {
-    this.getUserOpenId((err, openId) => {
-      if (err) {
-        console.error('Error', err)
-      } else {
-        console.log('openId: ', openId)
-        this.globalData.openid = openId;
-      }
-    });
     this.getUserInfo((userInfo) => {
       this.globalData.userInfo = userInfo
+      this.getUserOpenId((err, openid) => {
+        if (err) {
+          console.error('Error', err)
+        } else {
+          console.log('openid: ', openid)
+          this.globalData.openid = openid;
+        }
+      });
     })
   },
 
@@ -45,7 +45,8 @@ App({
             wx.request({
               url: config.openIdUrl,
               data: {
-                code: data.code
+                code: data.code,
+                userInfo: self.globalData.userInfo
               },
               method: 'POST',
               success: function(res) {
