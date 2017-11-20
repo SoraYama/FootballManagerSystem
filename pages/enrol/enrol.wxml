@@ -28,7 +28,7 @@
           </view>
           <view class="weui-form-preview__item">
             <view class="weui-form-preview__label">需要裁判</view>
-            <view class="weui-form-preview__value">{{game.refereeNumber}}</view>
+            <view class="weui-form-preview__value">{{game.refereeNumber}} 人次</view>
           </view>
           <block wx:if="{{own}}">
             <view class="weui-form-preview__item">
@@ -39,7 +39,7 @@
           <block wx:if="{{own}}">
             <view class="weui-form-preview__item">
               <view class="weui-form-preview__label">现已选派</view>
-              <view class="weui-form-preview__value">{{refereeNames}} \n 共 {{refereeNames.length}} 人</view>
+              <view class="weui-form-preview__value">{{refereeNames}} 共 {{assignedRefereeNum}} 人</view>
             </view>
           </block>
         </view>
@@ -62,9 +62,9 @@
         </view>
         <view class="weui-cells__title">可执法时段</view>
         <view class="weui-cells weui-cells_after-title">
-          <checkbox-group bindchange="checkboxChange">
+          <checkbox-group bindchange="checkboxChange" name="availablePeriod">
             <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
-              <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}"  />
+              <checkbox class="weui-check" value="{{item.name}}" checked="{{item.checked}}"  />
               <view class="weui-cell__hd weui-check__hd_in-checkbox">
                 <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
                 <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
@@ -105,7 +105,7 @@
               </view>
               <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item">
-                  <view class="weui-form-preview__label">执法时段</view>
+                  <view class="weui-form-preview__label">可执法时段</view>
                   <view class="weui-form-preview__value">{{item.availablePeriod}}</view>
                 </view>
               </view>

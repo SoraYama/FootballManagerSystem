@@ -14,6 +14,7 @@ Page({
 
     refereeNames: "",
     myName: "",
+    assignedRefereeNum: null,
 
     checkboxItems: [
       // {name: 'standard is dealt for u.', value: '0', checked: true},
@@ -70,6 +71,7 @@ Page({
           game: data.data,
           refereeNames: _refereeNames,
           checkboxItems: checks,
+          assignedRefereeNum: data.data.referees ? data.data.referees.filter(r => r.assigned).length : 0
         });
         console.log('*** enrol data.checkboxitems: ', this.data.checkboxItems)
       },
@@ -97,7 +99,7 @@ Page({
       checkboxItems[i].checked = false;
 
       for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
-        if (checkboxItems[i].value == values[j]) {
+        if (checkboxItems[i].name == values[j]) {
           checkboxItems[i].checked = true;
           break;
         }
@@ -124,7 +126,6 @@ Page({
     data['openid'] = app.globalData.openid
     data['gameId'] = this.data.colId
     data['userInfo'] = app.globalData.userInfo
-    data['availablePeriod'] = this.data.availablePeriod
 
     const URL = that.data.update ? config.updateEnrol : config.enrol
 

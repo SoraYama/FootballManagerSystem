@@ -76,7 +76,7 @@
           <view class="weui-label">裁判数</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入需要的裁判数" name="refereeNumber" bindinput="bindRefereeNumber" value='{{refereeNumber}}'/>
+          <input class="weui-input" placeholder="请输入需要的裁判人次" name="refereeNumber" bindinput="bindRefereeNumber" value='{{refereeNumber}}'/>
         </view>
       </view>
     </view>

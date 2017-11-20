@@ -94,10 +94,19 @@ Page({
         return e.gameName.indexOf(nameStr) >= 0 || e.gamePublisher.indexOf(nameStr) >= 0
       })
     }
+
     filtered.sort((a, b) => {
       console.debug("*** a: ", a)
       return parseInt(a.gameDate.split("-").join("")) - parseInt(b.gameDate.split("-").join(""))
     })
+
+    if (filtered.length > 0 && (this.data.activeIndex === "2" || this.data.activeIndex === 2)) {
+      for (let i = 0; i < filtered.length; i++) {
+        if (filtered[i].referees) {
+          filtered[i].assigned = filtered[i].referees.filter(r => r.openid === app.globalData.openid && r.assigned).length > 0
+        }
+      }
+    }
 
     console.debug("*** after filter: ", filtered)
     this.setData({
