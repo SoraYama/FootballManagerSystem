@@ -46,8 +46,8 @@
               <view class="weui-form-preview">
                 <view class="weui-form-preview__hd">
                   <view class="weui-form-preview__item">
-                      <view class="weui-form-preview__label">比赛名称</view>
-                      <view class="weui-form-preview__value_in-hd">{{item.gameName}}</view>
+                    <view class="weui-form-preview__label">比赛名称</view>
+                    <view class="weui-form-preview__value_in-hd">{{item.gameName}}</view>
                   </view>
                 </view>
                 <view class="weui-form-preview__bd">
@@ -60,7 +60,8 @@
                     </view>
                     <view class="weui-form-preview__item">
                       <view class="weui-form-preview__label">日期</view>
-                      <view class="weui-form-preview__value">{{item.gameDate}}</view>
+                      <view wx:if="{{!item.expired}}" class="weui-form-preview__value">{{item.gameDate}}</view>
+                      <view wx:else class="weui-form-preview__value date-expired">{{item.gameDate}}</view>
                     </view>
                     <view class="weui-form-preview__item">
                       <view class="weui-form-preview__label">时间</view>
@@ -188,6 +189,6 @@
       <view class="weui-footer__links">
         <view class="weui-footer__link">SoraYama</view>
       </view>
-    <view class="weui-footer__text">Copyright © 2017 sorayamah.org</view>
+    <view class="weui-footer__text">Copyright © 2019 sorayamah.org</view>
   </view>
 </view>

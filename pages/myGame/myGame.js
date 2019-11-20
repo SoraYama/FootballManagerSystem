@@ -97,7 +97,7 @@ Page({
 
     filtered.sort((a, b) => {
       console.debug("*** a: ", a)
-      return parseInt(a.gameDate.split("-").join("")) - parseInt(b.gameDate.split("-").join(""))
+      return parseInt(b.gameDate.split("-").join("")) - parseInt(a.gameDate.split("-").join(""))
     })
 
     if (filtered.length > 0 && (this.data.activeIndex === "2" || this.data.activeIndex === 2)) {
@@ -107,6 +107,11 @@ Page({
         }
       }
     }
+
+    filtered = filtered.map(i => ({
+      ...i,
+      expired: new Date(i.gameDate) < Date.now(),
+    }))
 
     console.debug("*** after filter: ", filtered)
     this.setData({
