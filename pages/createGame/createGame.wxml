@@ -30,7 +30,7 @@
             <view class="weui-label">发布者</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入赛事发布者" name="gamePublisher" bindinput="bindGamePublisher" value='{{gamePublisher}}'/>
+            <input class="weui-input" placeholder="请输入赛事发布者" name="gamePublisherName" bindinput="bindGamePublisher" value='{{gamePublisherName}}'/>
           </view>
         </view>
       <view class="weui-cell weui-cell_input">

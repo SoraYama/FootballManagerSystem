@@ -48,23 +48,18 @@ Page({
   },
 
   getGameData: function () {
-    if (!app.globalData.openid) return
     let that = this
 
     wx.showLoading(config.loadingToast)
 
     wx.request({
-      url: config.getAllGamesUrl,
-      data: {
-        openid: app.globalData.openid,
-      },
-      method: 'POST',
-      success: data => {
+      ...config.getAllGames,
+      success: resp => {
 
         wx.hideLoading()
 
-        let gameData = data.data
-        console.log('*** incoming data from all games: ', data)
+        let gameData = resp.data.data
+        console.log('*** incoming data from all games: ', resp.data)
         that.setData({
           availableGames: gameData.availableGames,
           myEnroledGames: gameData.myEnroledGames,
@@ -110,7 +105,9 @@ Page({
 
     filtered = filtered.map(i => ({
       ...i,
-      expired: new Date(i.gameDate) < Date.now(),
+      gameStartTime: new Date(i.gameStartTime).toLocaleString(),
+      gameEndTime: new Date(i.gameEndTime).toLocaleString(),
+      expired: new Date(i.gameStartTime) < Date.now(),
     }))
 
     console.debug("*** after filter: ", filtered)

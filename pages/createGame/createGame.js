@@ -5,10 +5,10 @@ const app = getApp()
 Page({
   data: {
     gameName: "",
-    gameDate: "2017-01-01",
+    gameDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
     gameTime: "00:00",
     gameEndTime: "23:59",
-    gamePublisher: "",
+    gamePublisherName: "",
     gameAvailablePeriod: "",
     refereeNumber: null,
     submitResponse: "",
@@ -42,7 +42,7 @@ Page({
 
   bindGamePublisher: function (e) {
     this.setData({
-      gamePublisher: e.detail.value,
+      gamePublisherName: e.detail.value,
     })
   },
 
@@ -77,7 +77,7 @@ Page({
   },
 
   formSubmit: function (e) {
-    if (!this.data.gameName || !this.data.refereeNumber || !this.data.gamePublisher) {
+    if (!this.data.gameName || !this.data.refereeNumber) {
       this.showTopTips()
       return
     }
@@ -85,19 +85,30 @@ Page({
     var that = this
     let formData = e.detail.value
     let available_period = this.data.gameAvailablePeriod.split(/\s+/g)
-    formData['openid'] = app.globalData.openid
-    formData['publisherAvatar'] = app.globalData.userInfo.avatarUrl
-    formData['gameAvailablePeriod'] = available_period
+    formData = {
+      ...formData,
+      gameStartTime: new Date(`${formData.gameDate} ${formData.gameTime}`).getTime(),
+      gameEndTime: new Date(`${formData.gameDate} ${formData.gameEndTime}`).getTime(),
+      requiredRefereeAmount: +formData.refereeNumber,
+      gameAvailablePeriod: available_period,
+    }
     console.log("*** formData: ", formData)
     wx.showLoading(config.loadingToast)
     wx.request({
-      url: config.createGame,
+      ...config.createGame,
       data: {
-        formData: formData,
+        ...formData,
       },
-      method: 'POST',
       success: function (res) {
         wx.hideLoading()
+        if (res.data.status !== 0) {
+          wx.showModal({
+            title: '提交失败',
+            showCancel: false,
+          })
+          console.warn("create game success", res.data)
+          return
+        }
         wx.showToast(config.successToast)
         console.log("create game success", res)
       },
