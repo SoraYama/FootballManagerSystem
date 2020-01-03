@@ -1,5 +1,5 @@
 // const host = 'https://www.sorayamah.org'
-const host = "http://localhost:7001";
+const host = "http://10.252.211.230:7001";
 const config = {
   loadingToast: {
     title: "加载中...",
@@ -42,17 +42,17 @@ const config = {
   /** 报名 */
   enrol: {
     url: `${host}/api/game/enrol`,
-    method: 'POST',
+    method: "POST"
   },
   /** 取消报名 */
   cancelEnrol: {
     url: `${host}/api/game/enrol`,
-    method: 'DELETE'
+    method: "DELETE"
   },
   /** 修改报名信息 */
   updateEnrol: {
     url: `${host}/api/game/enrol`,
-    method: 'PUT'
+    method: "PUT"
   },
   /** 选派 */
   assign: {
@@ -78,7 +78,7 @@ const config = {
   queryRefereeById: {
     url: `${host}/api/referee`,
     method: "GET"
-  },
+  }
 };
 
 module.exports = config;

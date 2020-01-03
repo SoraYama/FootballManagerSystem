@@ -33,9 +33,9 @@ Page({
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex,
         });
         let interval = null
-        if (!app.globalData.openid) {
+        if (!app.globalData.id) {
           interval = setInterval(() => {
-            if (app.globalData.openid) {
+            if (app.globalData.id) {
               that.getGameData()
               clearInterval(interval)
             }
@@ -70,6 +70,7 @@ Page({
         that.setCurrentArr(null)
       },
       failed: err => {
+        wx.hideLoading()
         console.error('get games err: ', err)
       }
     })
@@ -92,7 +93,7 @@ Page({
 
     filtered.sort((a, b) => {
       console.debug("*** a: ", a)
-      return parseInt(b.gameDate.split("-").join("")) - parseInt(a.gameDate.split("-").join(""))
+      return new Date(b.gameStartTime) - new Date(a.gameStartTime)
     })
 
     if (filtered.length > 0 && (this.data.activeIndex === "2" || this.data.activeIndex === 2)) {

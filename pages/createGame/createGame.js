@@ -83,6 +83,7 @@ Page({
     }
 
     var that = this
+    console.log('*** target.value', e.detail.value)
     let formData = e.detail.value
     let available_period = this.data.gameAvailablePeriod.split(/\s+/g)
     formData = {

@@ -89,33 +89,16 @@ Page({
         let data = res.data;
 
         that.setData({
-          isAdmin: data.isAdmin,
           myInfo: data.myInfo,
           allRefereesInfo: data.refereesInfo
         });
 
-        if (!!data.myInfo) {
+        if (data.myInfo) {
           that.setData({
-            refereeName: data.myInfo.refereeName,
-            refereeWeight: data.myInfo.refereeWeight,
-            refereeHeight: data.myInfo.refereeHeight,
-            refereePhoneNumber: data.myInfo.refereePhoneNumber,
-            refereeIdNumber: data.myInfo.refereeIdNumber,
-            refereeScholarId: data.myInfo.refereeScholarId,
-            refereeCardNumber: data.myInfo.refereeCardNumber,
-            refereeBankNumber: data.myInfo.refereeBankNumber,
-            refereeClass: data.myInfo.refereeClass
+            ...data.myInfo
           });
           app.globalData.myInfo = {
-            refereeName: data.myInfo.refereeName,
-            refereeWeight: data.myInfo.refereeWeight,
-            refereeHeight: data.myInfo.refereeHeight,
-            refereePhoneNumber: data.myInfo.refereePhoneNumber,
-            refereeIdNumber: data.myInfo.refereeIdNumber,
-            refereeScholarId: data.myInfo.refereeScholarId,
-            refereeCardNumber: data.myInfo.refereeCardNumber,
-            refereeBankNumber: data.myInfo.refereeBankNumber,
-            refereeClass: data.myInfo.refereeClass
+            ...data.myInfo
           };
         }
         wx.stopPullDownRefresh();
@@ -204,9 +187,8 @@ Page({
 
     wx.showLoading(config.loadingToast);
     wx.request({
-      url: config.registReferee,
+      ...config.registReferee,
       data: formData,
-      method: "POST",
       success: res => {
         wx.hideLoading();
         wx.showToast(config.successToast);

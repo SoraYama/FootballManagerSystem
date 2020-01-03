@@ -6,6 +6,9 @@
     "pages/refereeInfo/refereeInfo",
     "pages/refereeInfo/refereeQuery"
   ],
+  "networkTimeout": {
+    "request": 10000
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#000",
@@ -30,12 +33,6 @@
         "text": "创建比赛",
         "iconPath": "assets/icon2.png",
         "selectedIconPath": "assets/icon2_on.png"
-      },
-      {
-        "pagePath": "pages/refereeInfo/refereeInfo",
-        "text": "裁判信息",
-        "iconPath": "assets/icon4.png",
-        "selectedIconPath": "assets/icon4_on.png"
       }
     ]
   },
