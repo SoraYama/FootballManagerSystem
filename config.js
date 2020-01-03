@@ -1,5 +1,5 @@
-// const host = 'https://www.sorayamah.org'
-const host = "http://10.252.211.230:7001";
+const host = 'https://www.sorayamah.org'
+// const host = "http://10.252.211.230:7001";
 const config = {
   loadingToast: {
     title: "加载中...",

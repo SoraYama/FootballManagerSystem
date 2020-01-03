@@ -3,7 +3,7 @@ import util from '../../utils/util.js'
 import config from '../../config.js'
 
 const sliderWidth = 96;
-let app = getApp()
+const app = getApp()
 Page({
   data: {
     availableGames: [],
@@ -84,10 +84,10 @@ Page({
     console.debug("*** this.data.activeindex: ", this.data.activeIndex)
     console.debug("*** after switch: ", gameArr)
     let filtered = [];
-    if(gameArr) {
+    if (gameArr) {
       filtered = gameArr.filter(e => {
         if (!nameStr) { return true }
-        return e.gameName.indexOf(nameStr) >= 0 || e.gamePublisher.indexOf(nameStr) >= 0
+        return e.gameName.indexOf(nameStr) >= 0 || e.gamePublisher.name.indexOf(nameStr) >= 0
       })
     }
 
@@ -121,6 +121,8 @@ Page({
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
+      inputVal: "",
+      inputShowed: false,
     });
     this.setCurrentArr(null)
   },

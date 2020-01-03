@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/myGame/myGame",
     "pages/createGame/createGame",
     "pages/enrol/enrol",

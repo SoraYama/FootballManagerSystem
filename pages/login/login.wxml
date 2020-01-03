@@ -1,0 +1,16 @@
+<!--pages/login.wxml-->
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__bd">
+    <view class="page__hd">
+      <view class="page__title">欢迎使用足球裁判选派</view>
+    </view>
+
+    <view wx:if="{{loginBtnVis}}" class="weui-btn-area">
+      <button type="primary" class="weui-btn" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">登录</button>
+    </view>
+    
+    <view wx:else class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">验证授权中，请稍候</view>
+    </view>
+  </view>
+</view>

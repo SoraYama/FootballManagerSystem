@@ -216,13 +216,9 @@
     </view>
   </view>
   <view class="weui-footer weui-footer_fixed-bottom" style="position:relative;bottom:20px">
-    <view class="weui-btn-area">
-      <button type="primary" class="weui-btn" open-type="getUserInfo">登录</button>
-    </view>
-
     <view class="weui-footer__links">
       <view class="weui-footer__link">SoraYama</view>
     </view>
-    <view class="weui-footer__text">Copyright © 2019 sorayamah.org</view>
+    <view class="weui-footer__text">Copyright © 2020 sorayamah.org</view>
   </view>
 </view>
