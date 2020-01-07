@@ -84,7 +84,7 @@ Page({
     wx.request({
       ...config.showReferee,
       success: res => {
-        console.log("*** show referee data: ", res.data);
+        console.debug("*** show referee data: ", res.data);
         wx.hideLoading();
         let data = res.data;
 
@@ -164,7 +164,7 @@ Page({
   },
 
   bindClassChange: function(e) {
-    console.log("*** class e: ", e);
+    console.debug("*** class e: ", e);
     let that = this;
     this.setData({
       refereeClassIndex: e.detail.value,
@@ -174,8 +174,8 @@ Page({
 
   formSubmit: function(e) {
     let formData = e.detail.value;
-    console.log("*** referee regist info: ", formData);
-    console.log("*** this data ", this.data);
+    console.debug("*** referee regist info: ", formData);
+    console.debug("*** this data ", this.data);
     if (!this.data.refereeName) {
       this.showTopTips();
       return;
@@ -192,7 +192,7 @@ Page({
       success: res => {
         wx.hideLoading();
         wx.showToast(config.successToast);
-        console.log("referee regist success, res: ", res);
+        console.debug("referee regist success, res: ", res);
         that.getRefereeData();
       },
       fail: err => {
@@ -218,7 +218,7 @@ Page({
       title: `信息注册`,
       path: `/pages/refereeInfo/refereeInfo`,
       success: function(res) {
-        console.log("share success, res: ", res);
+        console.debug("share success, res: ", res);
       }
     };
   }

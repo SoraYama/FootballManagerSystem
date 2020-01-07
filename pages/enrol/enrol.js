@@ -35,11 +35,11 @@ Page({
   },
 
   onLoad: function(query) {
-    console.log("*** query: ", query);
+    console.debug("*** query: ", query);
     console.debug("*** global data in enrol.js", app.globalData);
     const myName =
       (app.globalData.myInfo && app.globalData.myInfo.refereeName) || "";
-    console.log("*** my name: ", myName);
+    console.debug("*** my name: ", myName);
     this.setData({
       colId: query.colId,
       cancel: query.cancel || false,
@@ -58,7 +58,7 @@ Page({
         gameId: this.data.colId
       },
       success: data => {
-        console.log("query game: ", data);
+        console.debug("query game: ", data);
         wx.hideLoading();
         let _refereeNames =
           data.data.data.referees &&
@@ -87,7 +87,10 @@ Page({
             ? data.data.data.referees.filter(r => r.assigned).length
             : 0
         });
-        console.log("*** enrol data.checkboxitems: ", this.data.checkboxItems);
+        console.debug(
+          "*** enrol data.checkboxitems: ",
+          this.data.checkboxItems
+        );
       },
       fail: err => {
         console.error("query game error!", err);
@@ -107,7 +110,7 @@ Page({
   },
 
   checkboxChange: function(e) {
-    console.log("*** checkbox e ", e.detail.value);
+    console.debug("*** checkbox e ", e.detail.value);
     var checkboxItems = this.data.checkboxItems,
       values = e.detail.value;
     for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
@@ -137,7 +140,7 @@ Page({
       return;
     }
 
-    console.log("enrol formData: ", e.detail.value);
+    console.debug("enrol formData: ", e.detail.value);
     wx.showLoading(config.loadingToast);
     let data = e.detail.value;
 
@@ -159,14 +162,14 @@ Page({
             showCancel: false
           });
         } else {
-          console.log("success", res);
+          console.debug("success", res);
           wx.showToast(config.successToast);
           setTimeout(wx.navigateBack, config.successToast.duration);
         }
       },
 
       fail: function() {
-        console.log("ENROL FAILED!");
+        console.debug("ENROL FAILED!");
         wx.hideLoading();
         wx.showModal({
           title: "提交失败",
@@ -186,7 +189,7 @@ Page({
         gameId: that.data.colId
       },
       success: data => {
-        console.log("cancel enrol success: ", data);
+        console.debug("cancel enrol success: ", data);
         wx.hideLoading();
         wx.showToast(config.loadingToast);
         setTimeout(wx.navigateBack, config.successToast.duration);
@@ -201,14 +204,14 @@ Page({
   /** 选派 */
   assign: function(e) {
     let that = this;
-    console.log("assign event", e);
+    console.debug("assign event", e);
     const { id, iscancle = false } = e.target.dataset;
     wx.showLoading(config.loadingToast);
-    console.log("*** game: ", that.data.game);
+    console.debug("*** game: ", that.data.game);
     let referee = that.data.game.referees
       .filter(r => r.referee._id === id)
       .shift();
-    console.log("assign var: ", referee);
+    console.debug("assign var: ", referee);
     wx.request({
       ...config.assign,
       data: {
@@ -217,7 +220,7 @@ Page({
         assigned: iscancle ? false : true
       },
       success: function(res) {
-        console.log(res);
+        console.debug(res);
         wx.hideLoading();
         if (res.data.status !== 0) {
           wx.showModal({
@@ -231,7 +234,7 @@ Page({
         // that.getGameData();
         const referees = [...that.data.game.referees];
         const updatedReferee = referees.find(r => r.referee._id === id);
-        console.log(",", updatedReferee);
+        console.debug(",", updatedReferee);
         const index = referees.indexOf(updatedReferee);
         referees.splice(index, 1, {
           ...updatedReferee,
@@ -267,14 +270,14 @@ Page({
 
   deleteGame: function() {
     wx.showLoading(config.loadingToast);
-    console.log("*** data.game: ", this.data.game);
+    console.debug("*** data.game: ", this.data.game);
     wx.request({
       ...config.deleteGame,
       data: {
         gameId: this.data.game._id
       },
       success: function(res) {
-        console.log("delete game success, res: ", res);
+        console.debug("delete game success, res: ", res);
         wx.hideLoading();
         wx.showToast(config.successToast);
         setTimeout(wx.navigateBack, config.successToast.duration);
@@ -288,7 +291,7 @@ Page({
       title: `赛事报名-${this.data.game.gameName}`,
       path: `/pages/enrol/enrol?colId=${this.data.colId}`,
       success: function(res) {
-        console.log("share success, res: ", res);
+        console.debug("share success, res: ", res);
       }
     };
   }

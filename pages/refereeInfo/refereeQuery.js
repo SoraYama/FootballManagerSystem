@@ -7,7 +7,7 @@ Page({
     info: null
   },
   onLoad: function(query) {
-    console.log(query);
+    console.debug(query);
     this.setData({
       refereeId: query.query
     });
@@ -18,14 +18,14 @@ Page({
         refereeId: this.data.refereeId
       },
       success: res => {
-        console.log("query referee data: ", res.data);
+        console.debug("query referee data: ", res.data);
         wx.hideLoading();
         this.setData({
           info: res.data
         });
       },
       fail: err => {
-        console.log("query referee FAILED! Error: ", err);
+        console.debug("query referee FAILED! Error: ", err);
         wx.showModal({
           title: "载入失败",
           content: "网络不稳定，请重新加载",
