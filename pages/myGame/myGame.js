@@ -1,6 +1,7 @@
 //myGame.js
 import util from "../../utils/util.js";
 import config from "../../config.js";
+import network from "../../lib/network.js";
 
 const sliderWidth = 96;
 const app = getApp();
@@ -54,13 +55,19 @@ Page({
 
     wx.showLoading(config.loadingToast);
 
-    wx.request({
-      ...config.getAllGames,
-      success: resp => {
+    network
+      .request(
+        config.getAllGames.url,
+        {},
+        {
+          method: config.getAllGames.method
+        }
+      )
+      .then(data => {
         wx.hideLoading();
 
-        let gameData = resp.data.data;
-        console.debug("*** incoming data from all games: ", resp.data);
+        let gameData = data.data;
+        console.debug("*** incoming data from all games: ", gameData);
         that.setData({
           availableGames: gameData.availableGames,
           myEnroledGames: gameData.myEnroledGames,
@@ -69,12 +76,11 @@ Page({
 
         wx.stopPullDownRefresh();
         that.setCurrentArr(null);
-      },
-      failed: err => {
+      })
+      .catch(err => {
         wx.hideLoading();
         console.error("get games err: ", err);
-      }
-    });
+      });
   },
 
   setCurrentArr: function(nameStr) {

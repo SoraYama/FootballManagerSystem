@@ -1,6 +1,7 @@
 //creategame.js
 import util from "../../utils/util.js";
 import config from "../../config.js";
+import network from "../../lib/network.js";
 const app = getApp();
 Page({
   data: {
@@ -14,12 +15,14 @@ Page({
     refereeNumber: null,
     submitResponse: "",
     showTopTips: false,
-    isAdmin: false
+    isAdmin: false,
+    isLogin: false
   },
 
-  onLoad: function() {
+  onShow() {
     this.setData({
-      isAdmin: app.globalData.isAdmin
+      isAdmin: app.globalData.isAdmin,
+      isLogin: !!app.globalData.id
     });
   },
 
@@ -33,6 +36,10 @@ Page({
         showTopTips: false
       });
     }, 3000);
+  },
+
+  goLogin(e) {
+    console.log(e);
   },
 
   bindGameName: function(e) {
@@ -99,34 +106,12 @@ Page({
       gameAvailablePeriod: available_period
     };
     console.debug("*** formData: ", formData);
-    wx.showLoading(config.loadingToast);
-    wx.request({
-      ...config.createGame,
-      data: {
+    network.request(
+      config.createGame.url,
+      {
         ...formData
       },
-      success: function(res) {
-        wx.hideLoading();
-        if (res.data.status !== 0) {
-          wx.showModal({
-            title: "提交失败",
-            showCancel: false
-          });
-          console.warn("create game success", res.data);
-          return;
-        }
-        wx.showToast(config.successToast);
-        console.debug("create game success", res);
-      },
-
-      fail: function(err) {
-        console.debug("CREATE GAME FAILED! Error: ", err);
-        wx.showModal({
-          title: "提交失败",
-          content: "网络不稳定，请重新提交",
-          showCancel: false
-        });
-      }
-    });
+      { method: "POST" }
+    );
   }
 });

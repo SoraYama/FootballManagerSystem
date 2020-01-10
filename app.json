@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/myGame/myGame",
     "pages/createGame/createGame",
     "pages/enrol/enrol",
+    "pages/login/login",
     "pages/refereeInfo/refereeInfo",
     "pages/refereeInfo/refereeQuery"
   ],
@@ -22,8 +22,7 @@
     "selectedColor": "#00C624",
     "backgroundColor": "#FFF",
     "position": "bottom",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/myGame/myGame",
         "text": "我的比赛",
         "iconPath": "assets/icon3.png",

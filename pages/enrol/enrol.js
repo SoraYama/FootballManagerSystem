@@ -1,6 +1,7 @@
 // enrol.js
 import util from "../../utils/util.js";
 import config from "../../config.js";
+import network from "../../lib/network.js";
 
 let app = getApp();
 Page({
@@ -47,35 +48,31 @@ Page({
       own: query.own || false,
       myName
     });
-    wx.showLoading(config.loadingToast);
     this.getGameData();
   },
 
   getGameData() {
-    wx.request({
-      ...config.queryById,
-      data: {
+    network
+      .request(config.queryById.url, {
         gameId: this.data.colId
-      },
-      success: data => {
-        console.debug("query game: ", data);
-        wx.hideLoading();
+      })
+      .then(data => {
         let _refereeNames =
-          data.data.data.referees &&
-          data.data.data.referees
+          data.data.referees &&
+          data.data.referees
             .filter(r => r.assigned)
             .map(r => r.refereeName)
             .join(", ");
-        let checks = data.data.data.gameAvailablePeriod.map((t, i) => {
+        let checks = data.data.gameAvailablePeriod.map((t, i) => {
           return {
             checked: false,
             value: i,
             name: t
           };
         });
-        const { gameStartTime, gameEndTime } = data.data.data;
+        const { gameStartTime, gameEndTime } = data.data;
         const toVisible = {
-          ...data.data.data,
+          ...data.data,
           gameStartTime: new Date(gameStartTime).toLocaleString(),
           gameEndTime: new Date(gameEndTime).toLocaleString()
         };
@@ -83,24 +80,15 @@ Page({
           game: toVisible,
           refereeNames: _refereeNames,
           checkboxItems: checks,
-          assignedRefereeNum: data.data.data.referees
-            ? data.data.data.referees.filter(r => r.assigned).length
+          assignedRefereeNum: data.data.referees
+            ? data.data.referees.filter(r => r.assigned).length
             : 0
         });
         console.debug(
           "*** enrol data.checkboxitems: ",
           this.data.checkboxItems
         );
-      },
-      fail: err => {
-        console.error("query game error!", err);
-        wx.showModal({
-          title: "加载失败",
-          content: "网络不稳定，请刷新",
-          showCancel: false
-        });
-      }
-    });
+      });
   },
 
   bindRefereeNameChange: function(e) {
@@ -146,59 +134,36 @@ Page({
 
     const networkConfig = that.data.update ? config.updateEnrol : config.enrol;
 
-    wx.request({
-      ...networkConfig,
-      data: {
-        gameId: this.data.colId,
-        availablePeriod: data.availablePeriod,
-        refereeName: data.refereeName
-      },
-      success: function(res) {
-        wx.hideLoading();
-        if (res.data.status !== 0) {
-          wx.showModal({
-            title: "提交失败",
-            content: res.data.msg,
-            showCancel: false
-          });
-        } else {
-          console.debug("success", res);
-          wx.showToast(config.successToast);
-          setTimeout(wx.navigateBack, config.successToast.duration);
-        }
-      },
+    network
+      .request(
+        networkConfig.url,
+        {
+          gameId: this.data.colId,
+          availablePeriod: data.availablePeriod,
+          refereeName: data.refereeName
+        },
+        { method: networkConfig.method }
+      )
+      .then(data => {
+        console.debug("success", res);
 
-      fail: function() {
-        console.debug("ENROL FAILED!");
-        wx.hideLoading();
-        wx.showModal({
-          title: "提交失败",
-          content: "网络不稳定，请重新提交",
-          showCancel: false
-        });
-      }
-    });
+        setTimeout(wx.navigateBack, config.successToast.duration);
+      });
   },
 
   cancelEnrol: function(e) {
     let that = this;
-    wx.showLoading(config.loadingToast);
-    wx.request({
-      ...config.cancelEnrol,
-      data: {
-        gameId: that.data.colId
-      },
-      success: data => {
+
+    network
+      .request(
+        config.cancelEnrol.url,
+        { gameId: that.data.colId },
+        { method: config.cancelEnrol.method }
+      )
+      .then(data => {
         console.debug("cancel enrol success: ", data);
-        wx.hideLoading();
-        wx.showToast(config.loadingToast);
         setTimeout(wx.navigateBack, config.successToast.duration);
-      },
-      failed: err => {
-        wx.hideLoading();
-        console.error("cancel enrol failed: ", err);
-      }
-    });
+      });
   },
 
   /** 选派 */
@@ -206,35 +171,26 @@ Page({
     let that = this;
     console.debug("assign event", e);
     const { id, iscancle = false } = e.target.dataset;
-    wx.showLoading(config.loadingToast);
     console.debug("*** game: ", that.data.game);
     let referee = that.data.game.referees
       .filter(r => r.referee._id === id)
       .shift();
     console.debug("assign var: ", referee);
-    wx.request({
-      ...config.assign,
-      data: {
-        refereeId: id,
-        gameId: that.data.game._id,
-        assigned: iscancle ? false : true
-      },
-      success: function(res) {
-        console.debug(res);
-        wx.hideLoading();
-        if (res.data.status !== 0) {
-          wx.showModal({
-            title: "选派失败",
-            content: "请重新尝试",
-            showCancel: false
-          });
-          return;
-        }
+    network
+      .request(
+        config.assign.url,
+        {
+          refereeId: id,
+          gameId: that.data.game._id,
+          assigned: iscancle ? false : true
+        },
+        { method: config.assign.method }
+      )
+      .then(() => {
         wx.showToast(config.successToast);
-        // that.getGameData();
         const referees = [...that.data.game.referees];
         const updatedReferee = referees.find(r => r.referee._id === id);
-        console.debug(",", updatedReferee);
+        console.debug("updatedReferee,", updatedReferee);
         const index = referees.indexOf(updatedReferee);
         referees.splice(index, 1, {
           ...updatedReferee,
@@ -246,16 +202,7 @@ Page({
             referees
           }
         });
-      },
-      fail: function(err) {
-        wx.hideLoading();
-        wx.showModal({
-          title: "选派失败",
-          content: "请重新尝试",
-          showCancel: false
-        });
-      }
-    });
+      });
   },
 
   onDeleteGame: function(e) {
@@ -269,20 +216,21 @@ Page({
   },
 
   deleteGame: function() {
-    wx.showLoading(config.loadingToast);
     console.debug("*** data.game: ", this.data.game);
-    wx.request({
-      ...config.deleteGame,
-      data: {
-        gameId: this.data.game._id
-      },
-      success: function(res) {
+    const { url, method } = config.deleteGame;
+    network
+      .request(
+        url,
+        {
+          gameId: this.data.game._id
+        },
+        { method }
+      )
+      .then(res => {
         console.debug("delete game success, res: ", res);
-        wx.hideLoading();
         wx.showToast(config.successToast);
         setTimeout(wx.navigateBack, config.successToast.duration);
-      }
-    });
+      });
   },
 
   /** 转发 */

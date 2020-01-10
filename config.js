@@ -1,5 +1,5 @@
 const host = "https://www.sorayamah.org";
-// const host = "http://127.0.0.1:8012";
+// const host = "http://127.0.0.1:7001";
 const config = {
   loadingToast: {
     title: "加载中...",
@@ -27,7 +27,10 @@ const config = {
   /** 创建比赛 */
   createGame: {
     url: `${host}/api/game`,
-    method: "POST"
+    method: "POST",
+    header: {
+      Accept: "application/json"
+    }
   },
   /** 获取所有比赛记录 */
   getAllGames: {
@@ -37,7 +40,10 @@ const config = {
   /** 用 id 查询比赛记录 */
   queryById: {
     url: `${host}/api/game`,
-    method: "GET"
+    method: "GET",
+    header: {
+      Accept: "application/json"
+    }
   },
   /** 报名 */
   enrol: {

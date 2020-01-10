@@ -5,10 +5,14 @@
       <view class="page__title">欢迎使用足球裁判选派</view>
     </view>
 
-    <view wx:if="{{loginBtnVis}}" class="weui-btn-area">
+    <view class="weui-cells__title info-text-center">
+      请授权登录以继续您的操作, 您的微信公开个人数据将不会被用作除本App内信息展示之外的用途
+    </view>
+
+    <view wx:if="{{loginBtnVis}}" class="weui-btn-area button-login">
       <button type="primary" class="weui-btn" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">登录</button>
     </view>
-    
+
     <view wx:else class="weui-loadmore weui-loadmore_line">
       <view class="weui-loadmore__tips weui-loadmore__tips_in-line">验证授权中，请稍候</view>
     </view>

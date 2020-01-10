@@ -1,6 +1,6 @@
 <!--createGame.wxml-->
 <view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
-  
+
   <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">表单缺项</view>
 
   <view class="page__hd">
@@ -9,20 +9,25 @@
 
   <block wx:if="{{!isAdmin}}">
     <view class="weui-loadmore weui-loadmore_line">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">您暂无权限发布比赛</view>
+      <navigator wx:if="{{!isLogin}}" open-type="navigate" url="/pages/login/login"
+        class="weui-loadmore__tips weui-loadmore__tips_in-line">
+        您尚未登录, 点击以登录
+      </navigator>
+      <view wx:else class="weui-loadmore__tips weui-loadmore__tips_in-line">您暂无权限发布比赛, 请联系管理员</view>
     </view>
   </block>
 
   <block wx:if="{{isAdmin}}">
     <view class="weui-cells__title">请输入比赛信息</view>
-      <form bindreset='formReset' bindsubmit='formSubmit'>
+    <form bindreset='formReset' bindsubmit='formSubmit'>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">赛事名称</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入赛事名称" name="gameName" bindinput="bindGameName" value='{{gameName}}'/>
+            <input class="weui-input" placeholder="请输入赛事名称" name="gameName" bindinput="bindGameName"
+              value='{{gameName}}' />
           </view>
         </view>
         <view class="weui-cell weui-cell_input">
@@ -30,56 +35,62 @@
             <view class="weui-label">发布者</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入赛事发布者" name="gamePublisherName" bindinput="bindGamePublisher" value='{{gamePublisherName}}'/>
+            <input class="weui-input" placeholder="请输入赛事发布者" name="gamePublisherName" bindinput="bindGamePublisher"
+              value='{{gamePublisherName}}' />
           </view>
         </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">日期</view>
-        </view>
-        <view class="weui-cell__bd">
-          <picker value="{{gameDate}}" name="gameDate" mode="date" bindchange="bindDateChange" start="2017-01-01" end="2050-12-31" fields="day">
-            <view class="weui-input">{{gameDate}}</view>
-          </picker>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">开始时间</view>
-        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">日期</view>
+          </view>
           <view class="weui-cell__bd">
-          <picker value="{{gameTime}}" name="gameTime" mode="time" bindchange="bindTimeChange" start="00:00" end="23:59">
-            <view class="weui-input">{{gameTime}}</view>
-          </picker>
+            <picker value="{{gameDate}}" name="gameDate" mode="date" bindchange="bindDateChange" start="2017-01-01"
+              end="2050-12-31" fields="day">
+              <view class="weui-input">{{gameDate}}</view>
+            </picker>
+          </view>
         </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">结束时间</view>
-        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">开始时间</view>
+          </view>
           <view class="weui-cell__bd">
-          <picker value="{{gameEndTime}}" name="gameEndTime" mode="time" bindchange="bindEndTimeChange" start="00:00" end="23:59">
-            <view class="weui-input">{{gameEndTime}}</view>
-          </picker>
+            <picker value="{{gameTime}}" name="gameTime" mode="time" bindchange="bindTimeChange" start="00:00"
+              end="23:59">
+              <view class="weui-input">{{gameTime}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">结束时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker value="{{gameEndTime}}" name="gameEndTime" mode="time" bindchange="bindEndTimeChange" start="00:00"
+              end="23:59">
+              <view class="weui-input">{{gameEndTime}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">可选时段</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入可选时段，用空格分开" name="gameAvailablePeriod"
+              bindinput="bindAvailablePeriod" value='{{gameAvailablePeriod}}' />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">裁判数</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入需要的裁判人次" name="refereeNumber" bindinput="bindRefereeNumber"
+              value='{{refereeNumber}}' />
+          </view>
         </view>
       </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">可选时段</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入可选时段，用空格分开" name="gameAvailablePeriod" bindinput="bindAvailablePeriod" value='{{gameAvailablePeriod}}'/>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">裁判数</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入需要的裁判人次" name="refereeNumber" bindinput="bindRefereeNumber" value='{{refereeNumber}}'/>
-        </view>
-      </view>
-    </view>
       <view class="weui-btn-area">
         <button class="weui-btn" type="primary" formType="submit">提交</button>
         <button class="weui-btn" type="default" formType="reset">重置</button>

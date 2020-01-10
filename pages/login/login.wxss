@@ -1,2 +1,10 @@
 /* pages/login.wxss */
-@import '../../wxss/style/weui.wxss';
+@import "../../wxss/style/weui.wxss";
+
+.info-text-center {
+  padding: 0 30px;
+}
+
+.button-login {
+  margin-top: 50px;
+}
