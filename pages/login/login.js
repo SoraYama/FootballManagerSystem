@@ -75,7 +75,7 @@ Page({
         console.debug("*** login data: ", data);
         if (data.code) {
           wx.request({
-            ...config.login,
+            ...config.register,
             data: {
               code: data.code,
               userInfo,
