@@ -112,6 +112,8 @@ Page({
         ...formData
       },
       { method: "POST" }
-    );
+    ).then(() => {
+      wx.showToast(config.successToast)
+    });
   }
 });
