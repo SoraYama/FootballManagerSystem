@@ -94,14 +94,12 @@ Page({
     console.debug("*** target.value", e.detail.value);
     let formData = e.detail.value;
     let available_period = this.data.gameAvailablePeriod.split(/\s+/g);
+    const gameStartTime = Date.parse(`${formData.gameDate} ${formData.gameTime}`.replace(/-/g, '/'));
+    const gameEndTime = Date.parse(`${formData.gameDate} ${formData.gameEndTime}`.replace(/-/g, '/'));
     formData = {
       ...formData,
-      gameStartTime: new Date(
-        `${formData.gameDate} ${formData.gameTime}`
-      ).getTime(),
-      gameEndTime: new Date(
-        `${formData.gameDate} ${formData.gameEndTime}`
-      ).getTime(),
+      gameStartTime,
+      gameEndTime,
       requiredRefereeAmount: +formData.refereeNumber,
       gameAvailablePeriod: available_period
     };
@@ -114,6 +112,12 @@ Page({
       { method: "POST" }
     ).then(() => {
       wx.showToast(config.successToast)
+    }).catch(err => {
+      wx.showModal({
+        title: "创建失败",
+        content: err.errMsg,
+        showCancel: false
+      });
     });
   }
 });
